@@ -25,6 +25,19 @@ Dica: no celular, use "Adicionar à tela de início" para virar um atalho.
   e o acerto por seção, com a explicação de cada questão.
 - Botão **🔄 Nova prova (renovar)** — sorteia **novas questões** de cada tema
   e embaralha as alternativas, girando o banco a cada rodada.
+- Seletor de nível **Padrão / Difícil** no topo:
+  - **Padrão** — questões de prova reais, parafraseadas, com cenários.
+  - **Difícil** — raciocínio combinado, comparação entre conceitos próximos
+    (ex.: *ação dupla* × *dupla ação*), análise de afirmativas (I, II, III),
+    questões "assinale a INCORRETA" e itens numéricos de legislação.
+
+## Bancos de questões
+
+Há dois bancos independentes no `<script>`:
+- `BANK` — nível **Padrão**.
+- `BANK_HARD` — nível **Difícil**.
+
+Ambos seguem a mesma estrutura oficial (6 / 6 / 3 / 5 = 20 questões).
 
 ## Editar / adicionar questões
 

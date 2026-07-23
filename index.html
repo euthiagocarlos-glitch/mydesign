@@ -61,7 +61,12 @@
   .theme-btn{flex:0 0 auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
     background:var(--surface); color:var(--ink); font-size:16px; display:grid; place-items:center;
     cursor:pointer; padding:0}
-  .bar{display:flex; gap:8px; align-items:center; margin-top:11px; flex-wrap:wrap}
+  .seg{display:flex; gap:4px; margin-top:11px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; padding:3px}
+  .seg-b{flex:1; font-size:12.5px; font-weight:700; padding:8px 10px; border-radius:7px;
+    background:transparent; color:var(--muted); border:0; letter-spacing:.01em}
+  .seg-b.active{background:var(--brass); color:var(--on-brass)}
+  .bar{display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap}
   .pill{font-size:11px; background:var(--surface); border:1px solid var(--line);
     color:var(--muted); padding:4px 9px; border-radius:8px; font-weight:600}
   .pill b{color:var(--ink)}
@@ -150,6 +155,10 @@
         <p class="sub">Tipo I — arma curta (revólver e pistola) · uso permitido</p>
       </div>
       <button class="theme-btn" id="btnTheme" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">◐</button>
+    </div>
+    <div class="seg" role="tablist" aria-label="Nível de dificuldade">
+      <button class="seg-b active" id="segPadrao" role="tab" aria-selected="true">Padrão</button>
+      <button class="seg-b" id="segDificil" role="tab" aria-selected="false">Difícil</button>
     </div>
     <div class="bar">
       <span class="pill"><b>20</b> questões</span>
@@ -395,6 +404,154 @@ const BANK = {
   }
 };
 
+/* ============================================================
+   BANCO NÍVEL DIFÍCIL — mesmas fontes (cartilha), porém com
+   enunciados de raciocínio combinado, comparação entre conceitos
+   próximos (ação dupla × dupla ação), análise de afirmativas
+   (I, II, III), "assinale a INCORRETA" e questões numéricas de
+   legislação. Convenção mantida: options[0] é sempre a correta.
+   ============================================================ */
+const BANK_HARD = {
+  seguranca: {
+    titulo: "Normas de Segurança",
+    n: 6,
+    perguntas: [
+      { q:"A arma 'nega fogo' durante o disparo. Analise: I) manter a arma apontada ao alvo por cerca de 30 s; II) o motivo é o possível retardamento na ignição do cartucho; III) abrir a arma e olhar pelo cano para diagnosticar. Está(ão) correta(s):",
+        options:["Apenas I e II","Apenas I","Apenas III","I, II e III"],
+        e:"I e II corretas; olhar pelo cano é exatamente o que NÃO se deve fazer." },
+      { q:"Um instrutor faz quatro afirmações sobre a trava de segurança. Assinale a ÚNICA correta:",
+        options:["É um dispositivo mecânico e não substitui o bom senso","Pode ser testada puxando o gatilho para confirmar que funciona","Com ela acionada, dispensa-se tratar a arma como carregada","Garante que a arma jamais dispare, mesmo se derrubada"],
+        e:"A trava é mecânica, não substitui o bom senso e nunca deve ser testada com o gatilho." },
+      { q:"Terminado o tiro, você vai guardar tudo em casa. A conduta INTEGRALMENTE correta é:",
+        options:["Descarregar a arma e guardá-la separada da munição, ambas fora do alcance de crianças","Guardar a arma carregada, porém travada, junto da munição","Guardar arma e munição juntas, desde que em local alto","Manter a arma municiada para emergências, longe das crianças"],
+        e:"Arma descarregada, guardada separada da munição, e ambas fora do alcance de crianças." },
+      { q:"Sobre apontamento e posição do dedo, assinale a afirmativa INCORRETA:",
+        options:["Se a arma está descarregada, o cano pode apontar para qualquer direção","O dedo fica estendido ao longo da armação até a decisão de atirar","A arma só é apontada para onde se pretende atirar","Trata-se a arma como se estivesse sempre carregada"],
+        e:"Mesmo descarregada, nunca se aponta para direção insegura — a arma é sempre tratada como carregada." },
+      { q:"Dois atiradores lado a lado, um com revólver e outro com pistola. Sobre os riscos laterais, a afirmativa correta é:",
+        options:["O revólver libera gases/resíduos na folga entre cano e tambor; a pistola ejeta estojos quentes lateralmente","Ambos ejetam estojos quentes pela folga do tambor","Só a pistola oferece risco lateral; o revólver é totalmente vedado","O revólver ejeta estojos e a pistola libera gases pelo tambor"],
+        e:"Revólver: escape de gases na folga cano-tambor. Pistola/rifle: ejeção de estojos quentes." },
+      { q:"Após um disparo de som abafado e recuo fraco, o atirador imediatamente efetua novo tiro. O principal risco dessa decisão é:",
+        options:["Um projétil preso no cano (obstrução) causar dano grave à arma e ao atirador","Apenas o desperdício de munição","Somente o superaquecimento do cano","Nenhum, desde que o alvo esteja livre"],
+        e:"Sinais anormais indicam possível obstrução; disparar de novo pode romper o cano. Pare, descarregue e inspecione." },
+      { q:"A verificação constante de que a arma está descarregada, sempre que você a pega, decorre diretamente de qual princípio-mãe?",
+        options:["Tratar a arma como se SEMPRE estivesse carregada","Nunca modificar as características da arma","Usar sempre proteção auricular","Guardar arma e munição separadamente"],
+        e:"O hábito de verificar nasce do princípio de tratar a arma como sempre carregada." },
+      { q:"Assinale a alternativa em que AMBAS as afirmações estão corretas:",
+        options:["Não se porta arma sob efeito de álcool/medicamentos que reduzam a percepção; munição recarregada não é confiável","Pode-se atirar após medicação leve; munição recarregada é sempre segura","Álcool em pequena dose é aceitável; munição velha é preferível por já ter sido testada","Só drogas ilícitas impedem o uso; a recarga aumenta a confiabilidade"],
+        e:"Nunca sob efeito de substâncias que reduzam a percepção; munição velha/recarregada não é confiável." }
+    ]
+  },
+
+  nomenclatura: {
+    titulo: "Nomenclatura e Funcionamento de Peças",
+    n: 6,
+    perguntas: [
+      { q:"Qual a diferença essencial entre 'ação dupla' e 'dupla ação'?",
+        options:["Na ação dupla não há engatilhamento manual; na dupla ação a arma opera tanto em ação simples quanto dupla","São sinônimos; a ordem das palavras não altera o sentido","Na ação dupla a arma dá rajadas; na dupla ação, tiro a tiro","Ação dupla é de antecarga; dupla ação é de retrocarga"],
+        e:"Ação dupla = só pelo gatilho, sem armar o cão. Dupla ação = permite os dois modos." },
+      { q:"Um revólver em que puxar o gatilho engatilha e libera o cão, MAS que também permite armar o cão manualmente para um tiro mais leve, possui sistema de:",
+        options:["Dupla ação","Ação dupla","Somente ação simples","Automático"],
+        e:"Permitir os dois modos = dupla ação. A 'ação dupla' pura não permite engatilhamento manual." },
+      { q:"Durante a percussão: o percutor atinge X, que inflama Y, que impulsiona Z pelo cano. X, Y e Z são, respectivamente:",
+        options:["Espoleta, pólvora e projétil","Pólvora, espoleta e projétil","Estojo, pólvora e espoleta","Espoleta, projétil e pólvora"],
+        e:"Percussão → espoleta gera a chama → inflama a pólvora → gases impulsionam o projétil." },
+      { q:"A definição 'arma em que, após cada disparo, o atirador precisa empregar força física sobre um componente do mecanismo para prepará-la ao tiro seguinte' corresponde a arma:",
+        options:["De repetição","Semiautomática","Automática","De dupla ação"],
+        e:"É a definição de arma de repetição (ex.: revólver, fuzil de ferrolho)." },
+      { q:"Assinale a afirmativa INCORRETA sobre pistolas e revólveres:",
+        options:["No revólver, os cartuchos ficam num carregador reto alojado na coronha","Na pistola, a câmara faz parte do corpo do cano","No revólver, o tambor giratório funciona como carregador","A pistola é geralmente semiautomática"],
+        e:"No revólver quem aloja os cartuchos é o TAMBOR, não um carregador reto — essa é a incorreta." },
+      { q:"Uma arma operada com uma só mão, com cilindro giratório atrás do cano, que a cada tiro exige apenas o acionamento do gatilho (o qual gira o tambor e libera o cão). Quanto a tamanho/porte e funcionamento, é:",
+        options:["Arma curta, de porte, de repetição (revólver)","Arma longa, portátil, semiautomática","Arma curta, semiautomática (pistola)","Arma curta, automática"],
+        e:"Cilindro giratório + operação a uma mão = revólver: curta, de porte, de repetição." },
+      { q:"O diâmetro interno do cano medido 'entre cheios' e o medido 'entre fundos' das raias correspondem, respectivamente, ao:",
+        options:["Calibre real e calibre do projétil","Calibre do projétil e calibre real","Calibre nominal e calibre real","Calibre real e calibre nominal"],
+        e:"Entre cheios = calibre real; entre fundos das raias = calibre do projétil." },
+      { q:"A designação comercial dada pelo fabricante a uma munição, que nem sempre coincide com o diâmetro real, é o:",
+        options:["Calibre nominal","Calibre real","Calibre do projétil","Calibre de prova"],
+        e:"Calibre nominal é a designação do fabricante, nem sempre igual ao real ou ao do projétil." },
+      { q:"Sobre a alma do cano, assinale a alternativa correta:",
+        options:["Pode ser lisa ou raiada, conforme o tipo de munição para o qual a arma foi projetada","É sempre raiada em qualquer arma de fogo","A alma lisa serve para estabilizar o projétil por rotação","A alma raiada é exclusiva das espingardas"],
+        e:"A alma pode ser lisa (polida) ou raiada (com raias), conforme o projeto da arma." },
+      { q:"Uma arma carregada pela boca do cano e outra carregada pela parte posterior do cano são classificadas, quanto ao carregamento, respectivamente, como:",
+        options:["Antecarga e retrocarga","Retrocarga e antecarga","Ambas antecarga","Repetição e automática"],
+        e:"Boca do cano = antecarga; parte posterior do cano = retrocarga." },
+      { q:"Uma arma que, a cada acionamento do gatilho, realiza sozinha extração, ejeção e alimentação do próximo cartucho, mas exige novo acionamento para o tiro seguinte, é:",
+        options:["Semiautomática","Automática","De repetição","Necessariamente de ação simples"],
+        e:"Faz tudo sozinha, menos exigir novo gatilho a cada tiro = semiautomática (ex.: pistola)." },
+      { q:"Numa pistola de ação simples com o cão já armado, e numa arma de ação dupla, o acionamento do gatilho produz, respectivamente:",
+        options:["Apenas o disparo / o engatilhamento e o disparo num só movimento","O engatilhamento e o disparo / apenas o disparo","Uma rajada / um único tiro","O travamento / o destravamento"],
+        e:"Ação simples (cão armado): só dispara. Ação dupla: o gatilho engatilha e dispara num movimento." }
+    ]
+  },
+
+  conduta: {
+    titulo: "Conduta no Estande de Tiro",
+    n: 3,
+    perguntas: [
+      { q:"Ocorrendo um incidente de tiro na prova, assinale a alternativa que reúne APENAS providências corretas:",
+        options:["Permanecer de frente para o alvo; manter a arma apontada ao alvo; levantar o braço oposto","Virar-se para o instrutor; baixar a arma; aguardar em silêncio","Apontar a arma para cima; recuar da linha; chamar em voz alta","Pousar a arma na bancada; levantar as duas mãos; sair da linha"],
+        e:"Frente ao alvo, arma apontada ao alvo e braço oposto levantado para chamar o instrutor." },
+      { q:"Assinale a afirmativa INCORRETA sobre a conduta no estande:",
+        options:["O candidato pode carregar e sacar a arma quando se sentir preparado, sem aguardar comando","O silêncio deve ser rigorosamente observado na linha de tiro","A arma permanece desmuniciada e guardada, salvo comando do instrutor","Havendo vários atiradores, mantém-se o alinhamento entre eles"],
+        e:"Carregar, sacar e descarregar só ocorrem SOB COMANDO do instrutor — a primeira é a incorreta." },
+      { q:"A regra de manter o cano sempre em 'direção segura' é definida por quem, e vale para quais situações?",
+        options:["Pelo instrutor, e vale para todo manuseio — carregar, sacar, descarregar e inspecionar","Pelo atirador, apenas no momento do disparo","Pelo colega ao lado, durante a recarga","Por ninguém; é opcional se a arma estiver desmuniciada"],
+        e:"A direção segura é a critério do instrutor e vale para todos os procedimentos de manuseio." },
+      { q:"Os princípios de 'nunca antecipar comandos' e 'obedecer sempre ao instrutor' têm como finalidade COMUM:",
+        options:["A segurança de todos na linha de tiro","A economia de munição","A rapidez na conclusão da prova","A melhoria da pontuação individual"],
+        e:"A disciplina de comandos existe para a segurança coletiva." },
+      { q:"Em um estande com quatro candidatos simultâneos, um avança meio passo à frente da linha para mirar melhor. Isso é:",
+        options:["Incorreto; deve-se manter o alinhamento com os demais atiradores","Correto, pois melhora a precisão","Indiferente, desde que ele esteja atirando","Permitido, se o instrutor não perceber"],
+        e:"Mantenha sempre o alinhamento da linha de tiro; nunca avance à frente dos demais." }
+    ]
+  },
+
+  legislacao: {
+    titulo: "Legislação (Lei 10.826/03 e Decreto 5.123/04)",
+    n: 5,
+    perguntas: [
+      { q:"Uma arma curta de repetição tem munição com energia de 480 joules na saída do cano. Quanto ao uso, ela é:",
+        options:["De uso restrito, pois excede 407 joules (300 libras-pé)","De uso permitido, por ser arma curta de repetição","De uso permitido, pois está abaixo de 1000 libras-pé","Indefinida, pois falta informar o calibre"],
+        e:"Curta de uso permitido vai até 407 J (300 libras-pé); 480 J ultrapassa → uso restrito." },
+      { q:"Entre .380 Auto, .40 S&W, .32 Auto e .38 SPL, qual é o ÚNICO de uso RESTRITO?",
+        options:[".40 S&W",".380 Auto",".32 Auto",".38 SPL"],
+        e:".40 S&W é restrito; .22, .25, .32, .38 SPL e .380 Auto são de uso permitido." },
+      { q:"Sobre a prova teórica (20 questões): I) Segurança 6; II) Nomenclatura 6; III) Conduta 5; IV) Legislação 3. Estão corretas apenas:",
+        options:["I e II","I, II e III","III e IV","Todas"],
+        e:"Conduta são 3 e Legislação são 5 — III e IV estão trocadas. Corretas: I e II." },
+      { q:"Duas armas de pressão, uma de 4,5 mm e outra de 7 mm, são, quanto ao uso, respectivamente:",
+        options:["Permitida e restrita","Ambas permitidas","Restrita e permitida","Ambas restritas"],
+        e:"Pressão de uso permitido: calibre ≤ 6 mm. 4,5 mm permitida; 7 mm (>6 mm) restrita." },
+      { q:"O limite de energia que separa permitido de restrito NÃO é único. Para arma LONGA raiada, o teto do uso permitido é:",
+        options:["Até 1000 libras-pé (aprox. 1355 joules)","Até 300 libras-pé (407 joules)","Até 6 mm de calibre","Não há limite para armas longas"],
+        e:"Longa raiada permitida: até 1000 libras-pé / 1355 J (a curta é até 300 libras-pé / 407 J)." },
+      { q:"Uma pistola semiautomática .380 e um revólver .38 SPL enquadram-se, na tabela de armas, respectivamente, como:",
+        options:["Tipo I Modelo B e Tipo I Modelo A","Tipo I Modelo A e Tipo I Modelo B","Tipo II Modelo B e Tipo I Modelo A","Ambos Tipo I Modelo A"],
+        e:"Pistola = Tipo I/B; revólver = Tipo I/A (ambos arma curta de alma raiada)." },
+      { q:"Na prova prática de arma curta raiada (registro), assinale a alternativa em que distância e nota mínima estão corretas:",
+        options:["10 tiros a 5 m e 10 a 7 m; mínimo de 60% (30 pontos em cada distância)","20 tiros a 7 m; mínimo de 50% dos acertos","10 a 5 m e 10 a 10 m; mínimo de 40 pontos","20 tiros a 5 m; mínimo de 72 pontos"],
+        e:"10 tiros a 5 m + 10 a 7 m; aprovação em 60% = 30 pontos em cada distância." },
+      { q:"Assinale a alternativa em que as DUAS informações estão corretas:",
+        options:["Munição deve ser original (recarregada proibida); nova avaliação após reprovação em 30 dias","Munição recarregada é permitida; reavaliação após 7 dias","Munição de festim é a padrão; reavaliação após 60 dias","Munição original é opcional; reavaliação após 90 dias"],
+        e:"Munição original obrigatória (recarregada proibida) e reavaliação possível após 30 dias." },
+      { q:"'Arma que arremessa projéteis empregando a força expansiva dos gases gerados pela combustão de um propelente confinado numa câmara.' Essa é a definição legal de:",
+        options:["Arma de fogo","Arma de pressão","Munição","Propelente"],
+        e:"É o conceito legal de arma de fogo (Decreto 3.665/00 – R 105)." },
+      { q:"O comprovante de capacitação técnica deve atestar que o pretendente reúne, CUMULATIVAMENTE:",
+        options:["Conhecimento das normas de segurança, conhecimento básico das partes da arma e habilidade de tiro em estande","Apenas boa pontaria no estande","Somente conhecimento das leis de armas","Capacidade de recarregar e fabricar munição"],
+        e:"O exame exige, em conjunto: segurança, conhecimento das partes da arma e habilidade prática." },
+      { q:"Para o REGISTRO usa-se a silhueta humanoide. O alvo de quatro cores (fogo central) é exigido para:",
+        options:["A concessão do PORTE (defesa pessoal / funcional condicionado)","O registro de arma curta","O registro de arma longa","Qualquer prova teórica"],
+        e:"O alvo colorido de fogo central é da prova de PORTE, não do registro." },
+      { q:"A nota mínima da prova teórica e o nº de acertos correspondentes em 20 questões são:",
+        options:["60% e 12 acertos","50% e 10 acertos","70% e 14 acertos","60% e 10 acertos"],
+        e:"60% de 20 = 12 acertos." }
+    ]
+  }
+};
+
 /* ---------- utilidades ---------- */
 function shuffle(a){ // Fisher-Yates
   const arr = a.slice();
@@ -406,6 +563,8 @@ const LETTERS=["A","B","C","D","E"];
 
 let current=[];   // questões da prova atual, na ordem exibida
 let graded=false;
+let MODE="padrao"; // "padrao" | "dificil"
+function activeBank(){ return MODE==="dificil" ? BANK_HARD : BANK; }
 
 /* ---------- montar prova ---------- */
 function buildExam(){
@@ -415,9 +574,10 @@ function buildExam(){
   examEl.innerHTML="";
   document.getElementById("result").className="result";
 
+  const B=activeBank();
   let globalIdx=0;
-  Object.keys(BANK).forEach(key=>{
-    const sec=BANK[key];
+  Object.keys(B).forEach(key=>{
+    const sec=B[key];
     const chosen=pick(sec.perguntas, sec.n);
 
     const secEl=document.createElement("section");
@@ -476,12 +636,13 @@ function grade(){
   }
   graded=true;
   let acertos=0;
+  const B=activeBank();
   const perSec={};
-  Object.keys(BANK).forEach(k=>perSec[BANK[k].titulo]={c:0,t:0});
+  Object.keys(B).forEach(k=>perSec[B[k].titulo]={c:0,t:0});
 
   let idx=0;
-  Object.keys(BANK).forEach(key=>{
-    const sec=BANK[key];
+  Object.keys(B).forEach(key=>{
+    const sec=B[key];
     for(let i=0;i<sec.n;i++){
       const q=current[idx++];
       q.el.classList.add("graded");
@@ -533,6 +694,22 @@ document.getElementById("btnTheme").addEventListener("click",()=>{
   document.documentElement.setAttribute("data-theme",next);
   toast(next==="dark" ? "Tema escuro" : "Tema claro");
 });
+
+/* ---------- seletor de nível ---------- */
+function setMode(mode){
+  if(MODE===mode) return;
+  MODE=mode;
+  const isHard=mode==="dificil";
+  document.getElementById("segDificil").classList.toggle("active",isHard);
+  document.getElementById("segDificil").setAttribute("aria-selected",isHard);
+  document.getElementById("segPadrao").classList.toggle("active",!isHard);
+  document.getElementById("segPadrao").setAttribute("aria-selected",!isHard);
+  buildExam();
+  document.getElementById("btnGrade").textContent="Corrigir prova";
+  toast(isHard ? "Nível difícil" : "Nível padrão");
+}
+document.getElementById("segPadrao").addEventListener("click",()=>setMode("padrao"));
+document.getElementById("segDificil").addEventListener("click",()=>setMode("dificil"));
 
 /* ---------- eventos ---------- */
 document.getElementById("btnGrade").addEventListener("click",grade);
