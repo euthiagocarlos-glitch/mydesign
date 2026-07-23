@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5132">
+<title>Simulado CAC — Prova Teórica (Registro Tipo I)</title>
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --card2:#1c232c; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --green:#2ea043; --green-d:#0f5132;
+    --red:#e5534b; --amber:#d29922; --accent:#3fb950; --sel:#1f6feb;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45}
+  .wrap{max-width:680px; margin:0 auto; padding:16px 14px 120px}
+  header{position:sticky; top:0; z-index:10; background:linear-gradient(180deg,var(--bg) 70%,rgba(13,17,23,.85));
+    padding:14px 14px 12px; border-bottom:1px solid var(--line)}
+  header .inner{max-width:680px; margin:0 auto}
+  h1{font-size:18px; margin:0 0 2px; letter-spacing:.2px}
+  .sub{font-size:12.5px; color:var(--muted); margin:0}
+  .bar{display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap}
+  .pill{font-size:11px; background:var(--card2); border:1px solid var(--line);
+    color:var(--muted); padding:4px 9px; border-radius:999px}
+  .prog{flex:1; height:6px; background:var(--card2); border-radius:999px; overflow:hidden; min-width:80px}
+  .prog > i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s}
+  section.sec{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    margin:16px 0; overflow:hidden}
+  .sec-h{display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:13px 15px; background:var(--card2); border-bottom:1px solid var(--line)}
+  .sec-h b{font-size:14.5px}
+  .sec-h span{font-size:11.5px; color:var(--muted); white-space:nowrap}
+  .q{padding:15px; border-bottom:1px solid var(--line)}
+  .q:last-child{border-bottom:0}
+  .q-t{font-size:15px; font-weight:600; margin:0 0 12px; display:flex; gap:8px}
+  .q-t .n{color:var(--accent); font-weight:700; min-width:26px}
+  .opt{display:flex; gap:10px; align-items:flex-start; padding:11px 12px; margin:7px 0;
+    background:var(--card2); border:1.5px solid var(--line); border-radius:11px; cursor:pointer;
+    font-size:14px; transition:border-color .12s,background .12s}
+  .opt .mk{flex:0 0 22px; height:22px; border-radius:50%; border:2px solid var(--muted);
+    display:grid; place-items:center; font-size:12px; font-weight:700; color:transparent}
+  .opt.sel{border-color:var(--sel); background:#132a4d}
+  .opt.sel .mk{border-color:var(--sel); background:var(--sel); color:#fff}
+  .graded .opt{cursor:default}
+  .opt.correct{border-color:var(--green); background:#0f2e1a}
+  .opt.correct .mk{border-color:var(--green); background:var(--green); color:#fff}
+  .opt.wrong{border-color:var(--red); background:#2e1414}
+  .opt.wrong .mk{border-color:var(--red); background:var(--red); color:#fff}
+  .exp{font-size:12.5px; color:var(--muted); margin-top:9px; padding:9px 11px;
+    background:#0f1620; border-left:3px solid var(--accent); border-radius:0 8px 8px 0; display:none}
+  .graded .exp{display:block}
+  .footbar{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(13,17,23,.95);
+    border-top:1px solid var(--line); padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+    backdrop-filter:blur(8px)}
+  .footbar .inner{max-width:680px; margin:0 auto; display:flex; gap:10px}
+  button{font-family:inherit; font-size:15px; font-weight:700; border:0; border-radius:12px;
+    padding:14px 16px; cursor:pointer; flex:1; transition:transform .05s,opacity .15s}
+  button:active{transform:scale(.97)}
+  .btn-main{background:var(--green); color:#fff}
+  .btn-alt{background:var(--card2); color:var(--txt); border:1px solid var(--line)}
+  .result{margin:16px 0; padding:18px; border-radius:var(--radius); text-align:center;
+    border:1px solid var(--line); display:none}
+  .result.show{display:block}
+  .result.pass{background:#0f2e1a; border-color:var(--green)}
+  .result.fail{background:#2e1414; border-color:var(--red)}
+  .result .big{font-size:34px; font-weight:800; margin:4px 0}
+  .result .lbl{font-size:14px; font-weight:700; letter-spacing:.5px}
+  .result .brk{font-size:12.5px; color:var(--muted); margin-top:10px; line-height:1.7}
+  .toast{position:fixed; left:50%; bottom:92px; transform:translateX(-50%) translateY(20px);
+    background:var(--card2); border:1px solid var(--line); color:var(--txt); font-size:13px;
+    padding:10px 16px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:30}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+  .note{font-size:11.5px; color:var(--muted); text-align:center; margin:22px 0 0; line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <h1>Simulado CAC — Prova Teórica</h1>
+    <p class="sub">Registro • Tipo I (arma curta: revólver e pistola) • uso permitido</p>
+    <div class="bar">
+      <span class="pill">20 questões</span>
+      <span class="pill">Aprovação: 60% (12 acertos)</span>
+      <div class="prog"><i id="progFill"></i></div>
+      <span class="pill" id="progTxt">0/20</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="result" class="result"></div>
+  <div id="exam"></div>
+  <p class="note">
+    Baseado na <b>Cartilha de Armamento e Tiro (SAT/ANP – CONAT/DARM)</b>.<br>
+    As questões giram a cada nova prova. Estude, mas na dúvida siga sempre o instrutor credenciado.
+  </p>
+</div>
+
+<div class="footbar">
+  <div class="inner">
+    <button class="btn-alt" id="btnNew">🔄 Nova prova</button>
+    <button class="btn-main" id="btnGrade">✓ Corrigir</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   BANCO DE QUESTÕES — Cartilha de Armamento e Tiro
+   Estrutura oficial da prova (pág. 18 da cartilha):
+     Normas de segurança .......... 6 questões
+     Nomenclatura/funcionamento ... 6 questões
+     Conduta no estande ........... 3 questões
+     Legislação ................... 5 questões
+   A cada "Nova prova" o sistema sorteia questões diferentes
+   de cada banco e embaralha as alternativas.
+   Em cada questão: options[0] é SEMPRE a correta (embaralhada na tela).
+   ============================================================ */
+
+const BANK = {
+  seguranca: {
+    titulo: "Normas de Segurança",
+    n: 6,
+    perguntas: [
+      { q:"Como se deve tratar toda arma de fogo?",
+        options:["Como se ela SEMPRE estivesse carregada","Como descarregada, se você acabou de guardá-la","Carregada apenas quando estiver no estande","Como um objeto comum, se estiver travada"],
+        e:"Regra básica: trate a arma como se SEMPRE estivesse carregada." },
+      { q:"Onde deve ficar o dedo até você estar realmente apontando para o alvo e pronto para o disparo?",
+        options:["Estendido ao longo do corpo da arma, fora do gatilho","Apoiado levemente no gatilho","Dentro do guarda-mato, pronto","No cão da arma"],
+        e:"O dedo fica estendido ao longo da arma; só vai ao gatilho na hora do disparo." },
+      { q:"Ao entregar uma arma a outra pessoa, você deve entregá-la:",
+        options:["Descarregada","Carregada, mas travada","Com o cão armado","Do jeito que estiver"],
+        e:"Sempre que entregar uma arma a alguém, entregue-a descarregada." },
+      { q:"Se a arma 'negar fogo' (não disparar ao acionar o gatilho), o correto é:",
+        options:["Manter a arma apontada para o alvo por cerca de 30 segundos","Olhar imediatamente dentro do cano","Bater a arma na bancada","Apontar para cima e tentar de novo"],
+        e:"Pode haver retardo de ignição; mantenha apontada ao alvo por ~30 segundos." },
+      { q:"Antes de qualquer limpeza da arma, você deve SEMPRE:",
+        options:["Certificar-se de que ela está descarregada","Apenas travar a arma","Retirar somente o carregador","Acionar o gatilho para testar"],
+        e:"Certifique-se de que a arma está descarregada antes de limpar." },
+      { q:"Como devem ser guardadas armas e munições?",
+        options:["Separadamente e em locais fora do alcance de crianças","Juntas, no mesmo estojo","Carregadas, para uso rápido","Em qualquer gaveta de fácil acesso"],
+        e:"Guarde armas e munições separadamente e fora do alcance de crianças." },
+      { q:"É correto atirar em superfícies planas e duras ou na água?",
+        options:["Não, pois os projéteis podem ricochetear","Sim, se estiver longe","Sim, na água o tiro é absorvido","Somente com arma de baixo calibre"],
+        e:"Nunca atire em superfícies planas/duras ou água: risco de ricochete." },
+      { q:"As travas de segurança da arma:",
+        options:["São apenas dispositivos mecânicos e não substituem o bom senso","Garantem 100% que a arma não dispara","Podem ser testadas puxando o gatilho","Dispensam os demais cuidados"],
+        e:"Travas são mecânicas e não substituem o bom senso; nunca teste puxando o gatilho." },
+      { q:"Ao transportar ou coldrear a arma, o cão deve estar:",
+        options:["Desarmado (nunca armado)","Sempre armado para saque rápido","Meia-armado","Indiferente"],
+        e:"NUNCA transporte ou coldreie a arma com o cão armado." },
+      { q:"Que equipamentos de proteção devem ser usados ao atirar?",
+        options:["Óculos protetores e abafadores de ruído","Apenas luvas","Somente boné","Nenhum é necessário no estande"],
+        e:"Sempre use óculos protetores e abafadores de ruído." },
+      { q:"Sobre o uso da arma sob efeito de álcool, drogas ilícitas ou medicamentos que diminuam a percepção:",
+        options:["Nunca porte ou utilize a arma nessas condições","Pode, se for pouca quantidade","Pode, desde que acompanhado","É permitido apenas com medicamentos"],
+        e:"NUNCA porte a arma sob efeito de substâncias que reduzam a percepção." },
+      { q:"Sobre modificar as características originais da arma:",
+        options:["Nunca modifique; se necessário, procure um armeiro profissional qualificado","Pode modificar livremente em casa","Só é permitido trocar o cano","É liberado para armas de uso permitido"],
+        e:"Nunca modifique a arma; havendo necessidade, use armeiro qualificado." },
+      { q:"Sobre munição velha ou recarregada:",
+        options:["Não é confiável e pode ser perigosa","É mais barata e igualmente segura","Só falha em armas longas","Deve ser sempre preferida"],
+        e:"Munição velha ou recarregada não é confiável, podendo ser perigosa." },
+      { q:"Ao pegar ou receber uma arma de alguém, o cano deve estar:",
+        options:["Nunca apontado na sua direção","Apontado para você, para conferir o cano","Para cima, sempre","Indiferente se estiver travada"],
+        e:"Nunca pegue ou receba uma arma com o cano apontado para você." },
+      { q:"Sobre revólveres e pistolas durante o disparo:",
+        options:["Revólveres soltam gases na folga cano-tambor; pistolas ejetam estojos quentes lateralmente — mantenha mãos e pessoas afastadas","Nenhum solta gases ou resíduos","Só pistolas oferecem risco lateral","Os estojos saem sempre para frente"],
+        e:"Revólver desprende gases na folga cano-tambor; pistola/rifle ejeta estojos quentes lateralmente." },
+      { q:"Se notar algo anormal no recuo ou no som da detonação, você deve:",
+        options:["Interromper os disparos, descarregar e verificar obstrução no cano","Continuar atirando normalmente","Aumentar a força no gatilho","Apenas limpar a mira"],
+        e:"Anormalidade no recuo/som: pare, descarregue e verifique obstrução do cano." },
+      { q:"Antes de carregar, você deve verificar se a munição:",
+        options:["Corresponde ao tamanho e ao calibre da arma","É da mesma marca da arma","Está apenas dentro da validade","Tem a mesma cor do estojo anterior"],
+        e:"Verifique se a munição corresponde ao tamanho e calibre da arma." }
+    ]
+  },
+
+  nomenclatura: {
+    titulo: "Nomenclatura e Funcionamento de Peças",
+    n: 6,
+    perguntas: [
+      { q:"O que caracteriza uma ARMA CURTA?",
+        options:["Pode ser operada com uma ou duas mãos, sem apoio no ombro","Exige sempre apoio no ombro","Tem cano maior que 60 cm","Só dispara em rajada"],
+        e:"Arma curta é operada com uma ou duas mãos, sem apoio no ombro." },
+      { q:"O REVÓLVER é definido como arma de porte que possui:",
+        options:["Um cilindro (tambor) giratório atrás do cano que serve de carregador","Câmara única no corpo do cano","Carregador reto na coronha","Cano de alma sempre lisa"],
+        e:"Revólver: cilindro giratório atrás do cano, com câmaras, que serve de carregador." },
+      { q:"A PISTOLA caracteriza-se por:",
+        options:["Ser geralmente semi-automática, com câmara no corpo do cano e carregador que apresenta os cartuchos sequencialmente","Ter um tambor giratório","Disparar somente em rajada","Ser sempre de antecarga"],
+        e:"Pistola: geralmente semi-automática, câmara no cano, carregador sequencial." },
+      { q:"Uma arma DE REPETIÇÃO é aquela em que, após cada disparo:",
+        options:["O atirador emprega força física sobre o mecanismo para prepará-la ao próximo tiro (ex.: revólver)","Todas as operações ocorrem sozinhas","Ela dispara em rajada","Não é possível novo disparo"],
+        e:"Repetição: o atirador atua fisicamente no mecanismo entre os disparos (ex. revólver)." },
+      { q:"Uma arma SEMI-AUTOMÁTICA:",
+        options:["Realiza automaticamente todas as operações, exceto o disparo, que exige novo acionamento do gatilho a cada tiro (ex.: pistola)","Dispara em rajada contínua","Exige recarga manual a cada tiro","Não possui carregador"],
+        e:"Semi-automática: tudo automático menos o disparo, que pede novo gatilho (ex. pistola)." },
+      { q:"Uma arma AUTOMÁTICA é aquela que:",
+        options:["Realiza carregamento, disparo e demais operações continuamente enquanto o gatilho é acionado (dá rajadas)","Dispara um tiro por acionamento","Precisa ser engatilhada a cada tiro","É de uso permitido para o CAC"],
+        e:"Automática: opera em rajada contínua enquanto o gatilho é acionado (ex. metralhadora)." },
+      { q:"No sistema de AÇÃO SIMPLES, ao acionar o gatilho:",
+        options:["Ocorre apenas o disparo, pois o cão já foi armado manualmente","Ocorre o engatilhamento e o disparo juntos","Nada acontece sem carregador","A arma dispara em rajada"],
+        e:"Ação simples: o cão é armado manualmente e o gatilho só libera o disparo." },
+      { q:"No sistema de AÇÃO DUPLA, o disparo:",
+        options:["Só ocorre pelo acionamento do gatilho, que engatilha e libera o cão; não permite engatilhamento manual","Exige sempre armar o cão antes","Ocorre em rajada","É feito pela boca do cano"],
+        e:"Ação dupla: o próprio gatilho engatilha e libera o cão; sem engatilhamento manual." },
+      { q:"O sistema DUPLA AÇÃO permite que a arma:",
+        options:["Seja acionada tanto em ação simples quanto em ação dupla","Dispare apenas em ação simples","Dispare somente em rajada","Funcione sem munição"],
+        e:"Dupla ação: a arma pode operar em ação simples OU em ação dupla." },
+      { q:"O cano de ALMA LISA é aquele que:",
+        options:["Tem o interior totalmente polido, sem raiamento (ex.: espingardas)","Possui sulcos helicoidais","Só existe em pistolas","Dispensa projétil"],
+        e:"Alma lisa: interior polido, sem raias (ex. espingardas)." },
+      { q:"O cano de ALMA RAIADA possui:",
+        options:["Sulcos helicoidais que forçam o projétil a girar, dando estabilidade","Interior liso e polido","Duas câmaras","Boca mais larga que a base"],
+        e:"Alma raiada: sulcos helicoidais que imprimem rotação ao projétil." },
+      { q:"As RAIAS têm a finalidade de:",
+        options:["Propiciar o movimento de rotação do projétil, garantindo estabilidade na trajetória","Reduzir o peso da arma","Facilitar a limpeza do cano","Diminuir o calibre"],
+        e:"Raias dão rotação ao projétil, garantindo estabilidade na trajetória." },
+      { q:"A munição (cartucho) geralmente divide-se em quais componentes?",
+        options:["Estojo, espoleta, pólvora e projétil","Cano, cão, gatilho e coronha","Alça, massa de mira e tambor","Cápsula, mola e percutor"],
+        e:"Munição: estojo, espoleta, pólvora e projétil." },
+      { q:"O ESTOJO da munição é:",
+        options:["O componente de união mecânica do cartucho, que mantém as partes unidas","A mistura que inicia a combustão","A parte lançada pelo cano","O propelente que gera gases"],
+        e:"Estojo: une mecanicamente os componentes do cartucho." },
+      { q:"A ESPOLETA é:",
+        options:["Um recipiente na base do estojo, com mistura iniciadora que gera chama na percussão","O projétil propriamente dito","A medida do calibre","O cilindro do revólver"],
+        e:"Espoleta: na base do estojo, contém a mistura iniciadora que gera a chama." },
+      { q:"A PÓLVORA na munição funciona como:",
+        options:["Propelente que, iniciado por uma chama, expande gases e arremessa o projétil","Parte que atinge o alvo","Recipiente do cartucho","Elemento de mira"],
+        e:"Pólvora: propelente que expande gases e impulsiona o projétil." },
+      { q:"O PROJÉTIL é:",
+        options:["A parte do cartucho lançada pelo cano (também chamado de bala ou ponta)","O recipiente que contém a pólvora","A mistura iniciadora","A folga entre cano e tambor"],
+        e:"Projétil: parte do cartucho lançada pelo cano (bala/ponta)." },
+      { q:"CALIBRE é a medida:",
+        options:["Do diâmetro interno do cano da arma","Do comprimento total do cano","Do peso do projétil","Da capacidade do carregador"],
+        e:"Calibre é a medida do diâmetro interno do cano." },
+      { q:"No carregamento por ANTECARGA, a munição é introduzida:",
+        options:["Pela boca do cano","Pela parte posterior do cano","Pelo tambor giratório","Pelo carregador reto"],
+        e:"Antecarga: carregamento feito pela boca do cano." }
+    ]
+  },
+
+  conduta: {
+    titulo: "Conduta no Estande de Tiro",
+    n: 3,
+    perguntas: [
+      { q:"Qual fator é preponderante para a segurança na linha de tiro?",
+        options:["O silêncio, observado rigorosamente","A rapidez dos disparos","A conversa entre atiradores","A quantidade de munição"],
+        e:"O silêncio é fator preponderante para a segurança na linha de tiro." },
+      { q:"No estande de tiro, como a arma deve permanecer, em regra?",
+        options:["Sempre desmuniciada e guardada, salvo comando expresso do instrutor","Sempre carregada e na mão","Coldreada e municiada","Sobre a bancada, carregada"],
+        e:"No estande, a arma fica sempre desmuniciada e guardada, salvo comando do instrutor." },
+      { q:"Os procedimentos de carregar, sacar, descarregar e inspecionar a arma são feitos:",
+        options:["Sob comando do instrutor, com o cano apontado em direção segura","Quando o atirador quiser","Somente ao final da prova","Com o cano apontado para os lados"],
+        e:"Todos os procedimentos são feitos sob comando do instrutor, cano em direção segura." },
+      { q:"Em relação aos comandos do instrutor, o atirador deve:",
+        options:["Obedecer sempre, nunca antecipando a execução nem fazendo o que não foi comandado","Adiantar-se para ganhar tempo","Executar apenas o que achar necessário","Ignorar comandos repetidos"],
+        e:"Obedeça sempre ao instrutor; nunca antecipe ou faça algo não comandado." },
+      { q:"Em caso de incidente durante o tiro, o candidato deve:",
+        options:["Permanecer de frente para o alvo, com a arma apontada ao alvo, e levantar o braço oposto para chamar o instrutor","Virar-se para trás e chamar em voz alta","Baixar a arma e caminhar até o instrutor","Apontar a arma para o alto"],
+        e:"Em incidente: fique de frente ao alvo, arma apontada ao alvo, e levante o braço oposto." },
+      { q:"Havendo mais de um candidato atirando ao mesmo tempo, deve-se:",
+        options:["Manter sempre o alinhamento com os outros atiradores","Avançar à frente da linha","Recuar para trás dos demais","Atirar fora de ordem"],
+        e:"Com vários atiradores, mantenha sempre o alinhamento da linha de tiro." }
+    ]
+  },
+
+  legislacao: {
+    titulo: "Legislação (Lei 10.826/03 e Decreto 5.123/04)",
+    n: 5,
+    perguntas: [
+      { q:"De quantas questões objetivas é composta a prova teórica?",
+        options:["20 questões","10 questões","15 questões","30 questões"],
+        e:"A prova teórica tem 20 questões objetivas." },
+      { q:"Qual o percentual mínimo de aproveitamento para ser aprovado na prova?",
+        options:["60%","50%","70%","80%"],
+        e:"Aprovação exige 60% de aproveitamento (12 de 20)." },
+      { q:"São exemplos de calibres de arma curta de USO PERMITIDO:",
+        options:[".22 LR, .32 Auto, .38 SPL e .380 Auto",".357 Magnum, 9mm Luger e .40 S&W",".44 Magnum e .45 Auto","7,62x39 e .308 Winchester"],
+        e:"Uso permitido (curtas): .22 LR, .25, .32 Auto, .32 S&W, .38 SPL, .380 Auto." },
+      { q:"São exemplos de calibres de arma curta de USO RESTRITO:",
+        options:[".357 Magnum, 9mm Luger, .40 S&W e .45 Auto",".22 LR, .32 Auto e .38 SPL",".380 Auto e .25 Auto","Apenas .22 LR"],
+        e:"Uso restrito (curtas): .357 Magnum, 9 Luger, .40 S&W, .45 Auto, entre outros." },
+      { q:"Para uma arma curta ser de uso permitido, a energia na saída do cano deve ser de até:",
+        options:["300 libras-pé (≈ 407 Joules)","1000 libras-pé","150 Joules","2000 Joules"],
+        e:"Arma curta de uso permitido: até 300 libras-pé / 407 Joules." },
+      { q:"Como se distribuem as 20 questões da prova teórica?",
+        options:["6 de segurança, 6 de nomenclatura, 3 de conduta e 5 de legislação","5 de cada tema","10 de segurança e 10 de legislação","4 de cada um dos cinco temas"],
+        e:"Distribuição: segurança 6, nomenclatura 6, conduta 3, legislação 5." },
+      { q:"Na prova prática de arma curta de alma raiada (registro), os 20 tiros são feitos a quais distâncias?",
+        options:["10 tiros a 5 metros e 10 tiros a 7 metros","Todos a 25 metros","10 tiros a 3m e 10 a 10m","5 tiros a 5m e 15 a 7m"],
+        e:"Prática arma curta raiada: 10 tiros a 5 m e 10 tiros a 7 m." },
+      { q:"Qual munição é permitida nas provas práticas?",
+        options:["Somente munição original (proibida a recarregada)","Qualquer munição, inclusive recarregada","Apenas munição recarregada","Munição de festim"],
+        e:"Nas provas usa-se munição original; a recarregada é proibida." },
+      { q:"Reprovado no exame, o candidato pode requerer nova avaliação após quantos dias?",
+        options:["30 dias","7 dias","60 dias","90 dias"],
+        e:"Nova avaliação pode ser requerida após 30 dias." },
+      { q:"Na tabela de armas, o REVÓLVER de uso permitido é classificado como:",
+        options:["Tipo I, Modelo A","Tipo II, Modelo B","Tipo III, Modelo A","Tipo IV, Modelo B"],
+        e:"Revólver (arma curta de alma raiada) = Tipo I, Modelo A." },
+      { q:"Na tabela de armas, a PISTOLA de uso permitido é classificada como:",
+        options:["Tipo I, Modelo B","Tipo I, Modelo A","Tipo II, Modelo A","Tipo III, Modelo B"],
+        e:"Pistola (arma curta de alma raiada) = Tipo I, Modelo B." },
+      { q:"Qual a nota mínima na prova prática (silhueta humanoide) para arma curta raiada?",
+        options:["60% da pontuação — 30 pontos em cada distância","50% dos disparos","100% dos pontos","40 pontos no total"],
+        e:"Prática: 60% da pontuação, ou seja, 30 pontos em cada distância." },
+      { q:"As armas de pressão de USO PERMITIDO possuem calibre:",
+        options:["Igual ou inferior a 6 mm","Superior a 6 mm","Igual ou inferior a 12 mm","Sem limite de calibre"],
+        e:"Arma de pressão de uso permitido: calibre igual ou inferior a 6 mm." },
+      { q:"Qual legislação serve de base para a parte de legislação da prova?",
+        options:["Lei 10.826/03 e Decreto 5.123/04","Apenas o Código Penal","Constituição Federal, art. 5º","Lei 9.503/97 (CTB)"],
+        e:"A base legal é a Lei 10.826/03 e o Decreto 5.123/04." }
+    ]
+  }
+};
+
+/* ---------- utilidades ---------- */
+function shuffle(a){ // Fisher-Yates
+  const arr = a.slice();
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+const LETTERS=["A","B","C","D","E"];
+
+let current=[];   // questões da prova atual, na ordem exibida
+let graded=false;
+
+/* ---------- montar prova ---------- */
+function buildExam(){
+  graded=false;
+  current=[];
+  const examEl=document.getElementById("exam");
+  examEl.innerHTML="";
+  document.getElementById("result").className="result";
+
+  let globalIdx=0;
+  Object.keys(BANK).forEach(key=>{
+    const sec=BANK[key];
+    const chosen=pick(sec.perguntas, sec.n);
+
+    const secEl=document.createElement("section");
+    secEl.className="sec";
+    secEl.innerHTML=`<div class="sec-h"><b>${sec.titulo}</b><span>${sec.n} ${sec.n>1?'questões':'questão'}</span></div>`;
+
+    chosen.forEach(p=>{
+      globalIdx++;
+      // options[0] é a correta; embaralha para exibir
+      const opts=shuffle(p.options.map((text,i)=>({text, correct:i===0})));
+      const qObj={ el:null, opts, chosen:null, id:globalIdx };
+      current.push(qObj);
+
+      const qEl=document.createElement("div");
+      qEl.className="q";
+      qEl.innerHTML=`<p class="q-t"><span class="n">${globalIdx}.</span><span>${p.q}</span></p>`;
+      opts.forEach((o,oi)=>{
+        const opt=document.createElement("div");
+        opt.className="opt";
+        opt.dataset.correct=o.correct?"1":"0";
+        opt.innerHTML=`<span class="mk">${LETTERS[oi]}</span><span>${o.text}</span>`;
+        opt.addEventListener("click",()=>{
+          if(graded) return;
+          qEl.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));
+          opt.classList.add("sel");
+          qObj.chosen=oi;
+          updateProgress();
+        });
+        qEl.appendChild(opt);
+      });
+      const exp=document.createElement("div");
+      exp.className="exp";
+      exp.textContent="✔ "+p.e;
+      qEl.appendChild(exp);
+      qObj.el=qEl;
+      secEl.appendChild(qEl);
+    });
+    examEl.appendChild(secEl);
+  });
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function updateProgress(){
+  const answered=current.filter(q=>q.chosen!==null).length;
+  document.getElementById("progFill").style.width=(answered/current.length*100)+"%";
+  document.getElementById("progTxt").textContent=answered+"/"+current.length;
+}
+
+/* ---------- corrigir ---------- */
+function grade(){
+  if(graded){ buildExam(); return; }
+  const unanswered=current.filter(q=>q.chosen===null).length;
+  if(unanswered>0){
+    if(!confirm(`Você deixou ${unanswered} questão(ões) em branco. Corrigir mesmo assim?`)) return;
+  }
+  graded=true;
+  let acertos=0;
+  const perSec={};
+  Object.keys(BANK).forEach(k=>perSec[BANK[k].titulo]={c:0,t:0});
+
+  let idx=0;
+  Object.keys(BANK).forEach(key=>{
+    const sec=BANK[key];
+    for(let i=0;i<sec.n;i++){
+      const q=current[idx++];
+      q.el.classList.add("graded");
+      const optEls=q.el.querySelectorAll(".opt");
+      let ok=false;
+      optEls.forEach((el,oi)=>{
+        const isCorrect=el.dataset.correct==="1";
+        if(isCorrect) el.classList.add("correct");
+        if(q.chosen===oi && !isCorrect) el.classList.add("wrong");
+        if(q.chosen===oi && isCorrect) ok=true;
+      });
+      perSec[sec.titulo].t++;
+      if(ok){ acertos++; perSec[sec.titulo].c++; }
+    }
+  });
+
+  const total=current.length;
+  const pct=Math.round(acertos/total*100);
+  const pass=pct>=60;
+  const res=document.getElementById("result");
+  res.className="result show "+(pass?"pass":"fail");
+  let brk="";
+  Object.keys(perSec).forEach(t=>{ brk+=`${t}: <b>${perSec[t].c}/${perSec[t].t}</b><br>`; });
+  res.innerHTML=`
+    <div class="lbl">${pass?"✅ APROVADO":"❌ REPROVADO"}</div>
+    <div class="big">${acertos}/${total} · ${pct}%</div>
+    <div class="lbl" style="color:var(--muted);font-weight:600">Mínimo para aprovar: 12/20 (60%)</div>
+    <div class="brk">${brk}</div>`;
+  document.getElementById("btnGrade").textContent="🔄 Refazer";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1600);
+}
+
+/* ---------- eventos ---------- */
+document.getElementById("btnGrade").addEventListener("click",grade);
+document.getElementById("btnNew").addEventListener("click",()=>{
+  buildExam();
+  document.getElementById("btnGrade").textContent="✓ Corrigir";
+  toast("Nova prova gerada 🔄");
+});
+
+buildExam();
+</script>
+</body>
+</html>
