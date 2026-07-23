@@ -3,89 +3,159 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f5132">
+<meta name="theme-color" content="#1b1f26" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eceef1" media="(prefers-color-scheme: light)">
 <title>Simulado CAC — Prova Teórica (Registro Tipo I)</title>
 <style>
+  /* ---- Design tokens: grafite/aço + acento latão (estojo) ---- */
   :root{
-    --bg:#0d1117; --card:#161b22; --card2:#1c232c; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --green:#2ea043; --green-d:#0f5132;
-    --red:#e5534b; --amber:#d29922; --accent:#3fb950; --sel:#1f6feb;
+    --bg:#eceef1; --surface:#ffffff; --surface-2:#f4f6f8; --line:#dde1e6;
+    --ink:#1b2027; --muted:#5c6672; --brass:#96631a; --brass-soft:#f3e9d6; --on-brass:#ffffff;
+    --sel:#2f5fd0; --sel-soft:#e6edfb;
+    --ok:#1f7a44; --ok-soft:#e4f3ea; --ok-mk:#1f7a44;
+    --bad:#c23b34; --bad-soft:#fbe8e7; --bad-mk:#c23b34;
+    --shadow:0 1px 2px rgba(20,25,32,.06), 0 8px 24px rgba(20,25,32,.05);
     --radius:14px;
   }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12151b; --surface:#1b1f26; --surface-2:#232833; --line:#2c323d;
+      --ink:#e7ebf0; --muted:#98a2af; --brass:#d9a441; --brass-soft:#2a2416; --on-brass:#241a06;
+      --sel:#5c8bff; --sel-soft:#1a2436;
+      --ok:#3ec17a; --ok-soft:#12271b; --ok-mk:#2ea25f;
+      --bad:#f0655c; --bad-soft:#2a1614; --bad-mk:#c9433b;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eceef1; --surface:#ffffff; --surface-2:#f4f6f8; --line:#dde1e6;
+    --ink:#1b2027; --muted:#5c6672; --brass:#96631a; --brass-soft:#f3e9d6; --on-brass:#ffffff;
+    --sel:#2f5fd0; --sel-soft:#e6edfb;
+    --ok:#1f7a44; --ok-soft:#e4f3ea; --ok-mk:#1f7a44;
+    --bad:#c23b34; --bad-soft:#fbe8e7; --bad-mk:#c23b34;
+    --shadow:0 1px 2px rgba(20,25,32,.06), 0 8px 24px rgba(20,25,32,.05);
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151b; --surface:#1b1f26; --surface-2:#232833; --line:#2c323d;
+    --ink:#e7ebf0; --muted:#98a2af; --brass:#d9a441; --brass-soft:#2a2416; --on-brass:#241a06;
+    --sel:#5c8bff; --sel-soft:#1a2436;
+    --ok:#3ec17a; --ok-soft:#12271b; --ok-mk:#2ea25f;
+    --bad:#f0655c; --bad-soft:#2a1614; --bad-mk:#c9433b;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.28);
+  }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-  html,body{margin:0; padding:0; background:var(--bg); color:var(--txt);
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.45}
-  .wrap{max-width:680px; margin:0 auto; padding:16px 14px 120px}
-  header{position:sticky; top:0; z-index:10; background:linear-gradient(180deg,var(--bg) 70%,rgba(13,17,23,.85));
-    padding:14px 14px 12px; border-bottom:1px solid var(--line)}
+    line-height:1.45; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px; margin:0 auto; padding:16px 14px 124px}
+  .eyebrow{font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--brass)}
+  /* ---- header ---- */
+  header{position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px); padding:12px 14px 11px; border-bottom:1px solid var(--line)}
   header .inner{max-width:680px; margin:0 auto}
-  h1{font-size:18px; margin:0 0 2px; letter-spacing:.2px}
-  .sub{font-size:12.5px; color:var(--muted); margin:0}
-  .bar{display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap}
-  .pill{font-size:11px; background:var(--card2); border:1px solid var(--line);
-    color:var(--muted); padding:4px 9px; border-radius:999px}
-  .prog{flex:1; height:6px; background:var(--card2); border-radius:999px; overflow:hidden; min-width:80px}
-  .prog > i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s}
-  section.sec{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-    margin:16px 0; overflow:hidden}
+  .htop{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+  h1{font-size:17.5px; margin:2px 0 2px; letter-spacing:-.01em; text-wrap:balance; font-weight:700}
+  .sub{font-size:12px; color:var(--muted); margin:0}
+  .theme-btn{flex:0 0 auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+    background:var(--surface); color:var(--ink); font-size:16px; display:grid; place-items:center;
+    cursor:pointer; padding:0}
+  .bar{display:flex; gap:8px; align-items:center; margin-top:11px; flex-wrap:wrap}
+  .pill{font-size:11px; background:var(--surface); border:1px solid var(--line);
+    color:var(--muted); padding:4px 9px; border-radius:8px; font-weight:600}
+  .pill b{color:var(--ink)}
+  .prog{flex:1; height:6px; background:var(--surface); border:1px solid var(--line);
+    border-radius:999px; overflow:hidden; min-width:74px}
+  .prog > i{display:block; height:100%; width:0; background:var(--brass); transition:width .3s ease}
+  .prog-txt{font-size:11px; color:var(--muted); font-weight:600; font-variant-numeric:tabular-nums;
+    min-width:34px; text-align:right}
+  /* ---- sections & questions ---- */
+  section.sec{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    margin:16px 0; overflow:hidden; box-shadow:var(--shadow)}
   .sec-h{display:flex; justify-content:space-between; align-items:center; gap:10px;
-    padding:13px 15px; background:var(--card2); border-bottom:1px solid var(--line)}
-  .sec-h b{font-size:14.5px}
-  .sec-h span{font-size:11.5px; color:var(--muted); white-space:nowrap}
-  .q{padding:15px; border-bottom:1px solid var(--line)}
-  .q:last-child{border-bottom:0}
-  .q-t{font-size:15px; font-weight:600; margin:0 0 12px; display:flex; gap:8px}
-  .q-t .n{color:var(--accent); font-weight:700; min-width:26px}
-  .opt{display:flex; gap:10px; align-items:flex-start; padding:11px 12px; margin:7px 0;
-    background:var(--card2); border:1.5px solid var(--line); border-radius:11px; cursor:pointer;
-    font-size:14px; transition:border-color .12s,background .12s}
-  .opt .mk{flex:0 0 22px; height:22px; border-radius:50%; border:2px solid var(--muted);
-    display:grid; place-items:center; font-size:12px; font-weight:700; color:transparent}
-  .opt.sel{border-color:var(--sel); background:#132a4d}
+    padding:13px 16px; border-bottom:1px solid var(--line);
+    border-left:3px solid var(--brass)}
+  .sec-h b{font-size:14px; letter-spacing:-.01em}
+  .sec-h .cnt{font-size:11px; color:var(--muted); white-space:nowrap; font-weight:600;
+    font-variant-numeric:tabular-nums}
+  .q{padding:16px}
+  .q + .q{border-top:1px solid var(--line)}
+  .q-t{font-size:15px; font-weight:600; margin:0 0 12px; display:flex; gap:9px; line-height:1.4}
+  .q-t .n{color:var(--brass); font-weight:700; min-width:24px; font-variant-numeric:tabular-nums}
+  .opt{display:flex; gap:11px; align-items:flex-start; padding:12px; margin:8px 0;
+    background:var(--surface-2); border:1.5px solid var(--line); border-radius:11px; cursor:pointer;
+    font-size:14px; transition:border-color .12s, background .12s; color:var(--ink)}
+  .opt:focus-visible{outline:2px solid var(--sel); outline-offset:2px}
+  .opt .mk{flex:0 0 23px; height:23px; border-radius:50%; border:2px solid var(--muted);
+    display:grid; place-items:center; font-size:12px; font-weight:700; color:transparent;
+    transition:.12s}
+  .opt .tx{flex:1}
+  .opt.sel{border-color:var(--sel); background:var(--sel-soft)}
   .opt.sel .mk{border-color:var(--sel); background:var(--sel); color:#fff}
   .graded .opt{cursor:default}
-  .opt.correct{border-color:var(--green); background:#0f2e1a}
-  .opt.correct .mk{border-color:var(--green); background:var(--green); color:#fff}
-  .opt.wrong{border-color:var(--red); background:#2e1414}
-  .opt.wrong .mk{border-color:var(--red); background:var(--red); color:#fff}
-  .exp{font-size:12.5px; color:var(--muted); margin-top:9px; padding:9px 11px;
-    background:#0f1620; border-left:3px solid var(--accent); border-radius:0 8px 8px 0; display:none}
+  .opt.correct{border-color:var(--ok); background:var(--ok-soft)}
+  .opt.correct .mk{border-color:var(--ok-mk); background:var(--ok-mk); color:#fff}
+  .opt.wrong{border-color:var(--bad); background:var(--bad-soft)}
+  .opt.wrong .mk{border-color:var(--bad-mk); background:var(--bad-mk); color:#fff}
+  .exp{font-size:12.5px; color:var(--muted); margin-top:10px; padding:10px 12px;
+    background:var(--brass-soft); border-left:3px solid var(--brass); border-radius:0 8px 8px 0;
+    display:none; line-height:1.5}
   .graded .exp{display:block}
-  .footbar{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(13,17,23,.95);
+  /* ---- footer action bar ---- */
+  .footbar{position:fixed; left:0; right:0; bottom:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 92%, transparent);
     border-top:1px solid var(--line); padding:12px 14px calc(12px + env(safe-area-inset-bottom));
-    backdrop-filter:blur(8px)}
+    backdrop-filter:blur(10px)}
   .footbar .inner{max-width:680px; margin:0 auto; display:flex; gap:10px}
   button{font-family:inherit; font-size:15px; font-weight:700; border:0; border-radius:12px;
-    padding:14px 16px; cursor:pointer; flex:1; transition:transform .05s,opacity .15s}
-  button:active{transform:scale(.97)}
-  .btn-main{background:var(--green); color:#fff}
-  .btn-alt{background:var(--card2); color:var(--txt); border:1px solid var(--line)}
-  .result{margin:16px 0; padding:18px; border-radius:var(--radius); text-align:center;
-    border:1px solid var(--line); display:none}
+    padding:14px 16px; cursor:pointer; flex:1; transition:transform .05s, filter .15s;
+    letter-spacing:.01em}
+  button:active{transform:scale(.98)}
+  button:focus-visible{outline:2px solid var(--sel); outline-offset:2px}
+  .btn-main{background:var(--brass); color:var(--on-brass)}
+  .btn-alt{background:var(--surface); color:var(--ink); border:1px solid var(--line)}
+  /* ---- result card ---- */
+  .result{margin:16px 0; padding:20px 18px; border-radius:var(--radius); text-align:center;
+    border:1px solid var(--line); display:none; box-shadow:var(--shadow)}
   .result.show{display:block}
-  .result.pass{background:#0f2e1a; border-color:var(--green)}
-  .result.fail{background:#2e1414; border-color:var(--red)}
-  .result .big{font-size:34px; font-weight:800; margin:4px 0}
-  .result .lbl{font-size:14px; font-weight:700; letter-spacing:.5px}
-  .result .brk{font-size:12.5px; color:var(--muted); margin-top:10px; line-height:1.7}
-  .toast{position:fixed; left:50%; bottom:92px; transform:translateX(-50%) translateY(20px);
-    background:var(--card2); border:1px solid var(--line); color:var(--txt); font-size:13px;
-    padding:10px 16px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:30}
+  .result.pass{background:var(--ok-soft); border-color:var(--ok)}
+  .result.fail{background:var(--bad-soft); border-color:var(--bad)}
+  .result .verdict{font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase}
+  .result.pass .verdict{color:var(--ok)}
+  .result.fail .verdict{color:var(--bad)}
+  .result .big{font-size:38px; font-weight:800; margin:6px 0 2px; letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums; color:var(--ink)}
+  .result .min{font-size:12px; color:var(--muted); font-weight:600}
+  .result .brk{font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.85;
+    text-align:left; display:inline-block; border-top:1px solid var(--line); padding-top:12px}
+  .result .brk b{color:var(--ink); font-variant-numeric:tabular-nums}
+  /* ---- toast ---- */
+  .toast{position:fixed; left:50%; bottom:94px; transform:translateX(-50%) translateY(14px);
+    background:var(--ink); border:1px solid var(--line); color:var(--bg); font-size:13px; font-weight:600;
+    padding:9px 16px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:30;
+    box-shadow:var(--shadow)}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
-  .note{font-size:11.5px; color:var(--muted); text-align:center; margin:22px 0 0; line-height:1.6}
+  .note{font-size:11.5px; color:var(--muted); text-align:center; margin:24px 0 0; line-height:1.7}
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important} }
 </style>
 </head>
 <body>
 <header>
   <div class="inner">
-    <h1>Simulado CAC — Prova Teórica</h1>
-    <p class="sub">Registro • Tipo I (arma curta: revólver e pistola) • uso permitido</p>
+    <div class="htop">
+      <div>
+        <p class="eyebrow">CAC · Certificado de Registro</p>
+        <h1>Simulado da Prova Teórica</h1>
+        <p class="sub">Tipo I — arma curta (revólver e pistola) · uso permitido</p>
+      </div>
+      <button class="theme-btn" id="btnTheme" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">◐</button>
+    </div>
     <div class="bar">
-      <span class="pill">20 questões</span>
-      <span class="pill">Aprovação: 60% (12 acertos)</span>
+      <span class="pill"><b>20</b> questões</span>
+      <span class="pill">Aprova com <b>60%</b></span>
       <div class="prog"><i id="progFill"></i></div>
-      <span class="pill" id="progTxt">0/20</span>
+      <span class="prog-txt" id="progTxt">0/20</span>
     </div>
   </div>
 </header>
@@ -101,8 +171,8 @@
 
 <div class="footbar">
   <div class="inner">
-    <button class="btn-alt" id="btnNew">🔄 Nova prova</button>
-    <button class="btn-main" id="btnGrade">✓ Corrigir</button>
+    <button class="btn-alt" id="btnNew">Nova prova</button>
+    <button class="btn-main" id="btnGrade">Corrigir prova</button>
   </div>
 </div>
 
@@ -346,7 +416,7 @@ function buildExam(){
 
     const secEl=document.createElement("section");
     secEl.className="sec";
-    secEl.innerHTML=`<div class="sec-h"><b>${sec.titulo}</b><span>${sec.n} ${sec.n>1?'questões':'questão'}</span></div>`;
+    secEl.innerHTML=`<div class="sec-h"><b>${sec.titulo}</b><span class="cnt">${sec.n} ${sec.n>1?'questões':'questão'}</span></div>`;
 
     chosen.forEach(p=>{
       globalIdx++;
@@ -362,7 +432,7 @@ function buildExam(){
         const opt=document.createElement("div");
         opt.className="opt";
         opt.dataset.correct=o.correct?"1":"0";
-        opt.innerHTML=`<span class="mk">${LETTERS[oi]}</span><span>${o.text}</span>`;
+        opt.innerHTML=`<span class="mk">${LETTERS[oi]}</span><span class="tx">${o.text}</span>`;
         opt.addEventListener("click",()=>{
           if(graded) return;
           qEl.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));
@@ -374,7 +444,7 @@ function buildExam(){
       });
       const exp=document.createElement("div");
       exp.className="exp";
-      exp.textContent="✔ "+p.e;
+      exp.textContent=p.e;
       qEl.appendChild(exp);
       qObj.el=qEl;
       secEl.appendChild(qEl);
@@ -430,11 +500,11 @@ function grade(){
   let brk="";
   Object.keys(perSec).forEach(t=>{ brk+=`${t}: <b>${perSec[t].c}/${perSec[t].t}</b><br>`; });
   res.innerHTML=`
-    <div class="lbl">${pass?"✅ APROVADO":"❌ REPROVADO"}</div>
+    <div class="verdict">${pass?"Aprovado":"Reprovado"}</div>
     <div class="big">${acertos}/${total} · ${pct}%</div>
-    <div class="lbl" style="color:var(--muted);font-weight:600">Mínimo para aprovar: 12/20 (60%)</div>
+    <div class="min">Mínimo para aprovar: 12/20 (60%)</div>
     <div class="brk">${brk}</div>`;
-  document.getElementById("btnGrade").textContent="🔄 Refazer";
+  document.getElementById("btnGrade").textContent="Refazer";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -446,12 +516,24 @@ function toast(msg){
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1600);
 }
 
+/* ---------- tema claro/escuro ---------- */
+function currentTheme(){
+  const attr=document.documentElement.getAttribute("data-theme");
+  if(attr) return attr;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+document.getElementById("btnTheme").addEventListener("click",()=>{
+  const next=currentTheme()==="dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme",next);
+  toast(next==="dark" ? "Tema escuro" : "Tema claro");
+});
+
 /* ---------- eventos ---------- */
 document.getElementById("btnGrade").addEventListener("click",grade);
 document.getElementById("btnNew").addEventListener("click",()=>{
   buildExam();
-  document.getElementById("btnGrade").textContent="✓ Corrigir";
-  toast("Nova prova gerada 🔄");
+  document.getElementById("btnGrade").textContent="Corrigir prova";
+  toast("Nova prova gerada");
 });
 
 buildExam();
