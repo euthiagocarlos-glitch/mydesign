@@ -166,7 +166,7 @@
 
 <div class="brandbar">
   <div class="inner">
-    <img class="logo-img" src="https://acdn-us.mitiendanube.com/stores/005/526/546/themes/common/logo-130337510-1732579161-773f8817c75b753fe1f3868dbaa658bc1732579161-480-0.webp" alt="24HS Clube de Tiro"
+    <img class="logo-img" src="https://i.ibb.co/4nVGfBGK/logo-24h.png" alt="24HS Clube de Tiro"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
     <span class="logo-fb">
       <svg class="logo-cross" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -840,12 +840,6 @@ function currentTheme(){
   if(attr) return attr;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
-document.getElementById("btnTheme").addEventListener("click",()=>{
-  const next=currentTheme()==="dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme",next);
-  toast(next==="dark" ? "Tema escuro" : "Tema claro");
-});
-
 /* ---------- seletor de nível ---------- */
 const SEGS={facil:"segFacil", dificil:"segDificil", vf:"segVF"};
 const LABELS={facil:"Nível fácil", dificil:"Nível difícil", vf:"Verdadeiro ou Falso"};
@@ -862,19 +856,29 @@ function setMode(mode){
   document.getElementById("btnGrade").textContent="Corrigir prova";
   toast(LABELS[mode]);
 }
-document.getElementById("segFacil").addEventListener("click",()=>setMode("facil"));
-document.getElementById("segDificil").addEventListener("click",()=>setMode("dificil"));
-document.getElementById("segVF").addEventListener("click",()=>setMode("vf"));
 
-/* ---------- eventos ---------- */
-document.getElementById("btnGrade").addEventListener("click",grade);
-document.getElementById("btnNew").addEventListener("click",()=>{
+/* ---------- inicialização: só roda depois que o DOM existe,
+   independentemente de onde o <script> acabe posicionado ---------- */
+function init(){
+  const byId=id=>document.getElementById(id);
+  byId("btnTheme").addEventListener("click",()=>{
+    const next=currentTheme()==="dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme",next);
+    toast(next==="dark" ? "Tema escuro" : "Tema claro");
+  });
+  byId("segFacil").addEventListener("click",()=>setMode("facil"));
+  byId("segDificil").addEventListener("click",()=>setMode("dificil"));
+  byId("segVF").addEventListener("click",()=>setMode("vf"));
+  byId("btnGrade").addEventListener("click",grade);
+  byId("btnNew").addEventListener("click",()=>{
+    buildExam();
+    byId("btnGrade").textContent="Corrigir prova";
+    toast("Nova prova gerada");
+  });
   buildExam();
-  document.getElementById("btnGrade").textContent="Corrigir prova";
-  toast("Nova prova gerada");
-});
-
-buildExam();
+}
+if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",init); }
+else{ init(); }
 </script>
 </body>
 </html>
