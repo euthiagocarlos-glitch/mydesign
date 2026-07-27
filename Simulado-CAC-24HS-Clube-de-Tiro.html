@@ -3,98 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1b1f26" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#eceef1" media="(prefers-color-scheme: light)">
-<title>Simulado CAC — Prova Teórica (Registro Tipo I)</title>
+<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: light)">
+<title>Simulado CAC — 24HS Clube de Tiro</title>
 <style>
-  /* ---- Design tokens: grafite/aço + acento latão (estojo) ---- */
+  /* ---- Tokens: identidade 24HS (preto + vermelho) ---- */
   :root{
-    --bg:#eceef1; --surface:#ffffff; --surface-2:#f4f6f8; --line:#dde1e6;
-    --ink:#1b2027; --muted:#5c6672; --brass:#96631a; --brass-soft:#f3e9d6; --on-brass:#ffffff;
-    --sel:#2f5fd0; --sel-soft:#e6edfb;
+    --bg:#f1f2f4; --surface:#ffffff; --surface-2:#f5f6f8; --line:#e3e5e9;
+    --ink:#16171b; --muted:#5b636f; --brand:#d81620; --brand-soft:#fdecec; --on-brand:#ffffff;
+    --sel:#d81620; --sel-soft:#fdecec;
     --ok:#1f7a44; --ok-soft:#e4f3ea; --ok-mk:#1f7a44;
-    --bad:#c23b34; --bad-soft:#fbe8e7; --bad-mk:#c23b34;
-    --shadow:0 1px 2px rgba(20,25,32,.06), 0 8px 24px rgba(20,25,32,.05);
+    --bad:#c8262e; --bad-soft:#fbe8e7; --bad-mk:#c8262e;
+    --shadow:0 1px 2px rgba(16,18,24,.06), 0 8px 24px rgba(16,18,24,.06);
     --radius:14px;
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --bg:#12151b; --surface:#1b1f26; --surface-2:#232833; --line:#2c323d;
-      --ink:#e7ebf0; --muted:#98a2af; --brass:#d9a441; --brass-soft:#2a2416; --on-brass:#241a06;
-      --sel:#5c8bff; --sel-soft:#1a2436;
-      --ok:#3ec17a; --ok-soft:#12271b; --ok-mk:#2ea25f;
-      --bad:#f0655c; --bad-soft:#2a1614; --bad-mk:#c9433b;
-      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.28);
+      --bg:#0b0b0d; --surface:#151517; --surface-2:#1e1e22; --line:#2c2c33;
+      --ink:#f0f1f3; --muted:#9b9ba6; --brand:#f0242c; --brand-soft:#2a1315; --on-brand:#ffffff;
+      --sel:#f0242c; --sel-soft:#2a1315;
+      --ok:#33c463; --ok-soft:#0f2a1a; --ok-mk:#2ea25f;
+      --bad:#ff6b62; --bad-soft:#2e1614; --bad-mk:#d9433b;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.3);
     }
   }
   :root[data-theme="light"]{
-    --bg:#eceef1; --surface:#ffffff; --surface-2:#f4f6f8; --line:#dde1e6;
-    --ink:#1b2027; --muted:#5c6672; --brass:#96631a; --brass-soft:#f3e9d6; --on-brass:#ffffff;
-    --sel:#2f5fd0; --sel-soft:#e6edfb;
+    --bg:#f1f2f4; --surface:#ffffff; --surface-2:#f5f6f8; --line:#e3e5e9;
+    --ink:#16171b; --muted:#5b636f; --brand:#d81620; --brand-soft:#fdecec; --on-brand:#ffffff;
+    --sel:#d81620; --sel-soft:#fdecec;
     --ok:#1f7a44; --ok-soft:#e4f3ea; --ok-mk:#1f7a44;
-    --bad:#c23b34; --bad-soft:#fbe8e7; --bad-mk:#c23b34;
-    --shadow:0 1px 2px rgba(20,25,32,.06), 0 8px 24px rgba(20,25,32,.05);
+    --bad:#c8262e; --bad-soft:#fbe8e7; --bad-mk:#c8262e;
+    --shadow:0 1px 2px rgba(16,18,24,.06), 0 8px 24px rgba(16,18,24,.06);
   }
   :root[data-theme="dark"]{
-    --bg:#12151b; --surface:#1b1f26; --surface-2:#232833; --line:#2c323d;
-    --ink:#e7ebf0; --muted:#98a2af; --brass:#d9a441; --brass-soft:#2a2416; --on-brass:#241a06;
-    --sel:#5c8bff; --sel-soft:#1a2436;
-    --ok:#3ec17a; --ok-soft:#12271b; --ok-mk:#2ea25f;
-    --bad:#f0655c; --bad-soft:#2a1614; --bad-mk:#c9433b;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.28);
+    --bg:#0b0b0d; --surface:#151517; --surface-2:#1e1e22; --line:#2c2c33;
+    --ink:#f0f1f3; --muted:#9b9ba6; --brand:#f0242c; --brand-soft:#2a1315; --on-brand:#ffffff;
+    --sel:#f0242c; --sel-soft:#2a1315;
+    --ok:#33c463; --ok-soft:#0f2a1a; --ok-mk:#2ea25f;
+    --bad:#ff6b62; --bad-soft:#2e1614; --bad-mk:#d9433b;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.3);
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.45; -webkit-font-smoothing:antialiased}
-  .wrap{max-width:680px; margin:0 auto; padding:16px 14px 124px}
-  .eyebrow{font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--brass)}
+  .wrap{max-width:680px; margin:0 auto; padding:16px 14px 128px}
+  .eyebrow{font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--brand)}
+
+  /* ---- Brand bar (sempre escura, como o site 24HS) ---- */
+  .brandbar{background:#0b0b0d; border-bottom:2px solid var(--brand)}
+  .brandbar .inner{max-width:680px; margin:0 auto; display:flex; align-items:center; gap:12px;
+    padding:11px 14px}
+  .logo-img{height:38px; width:auto; display:block}
+  .logo-fb{display:none; align-items:center; gap:9px}
+  .logo-cross{width:34px; height:34px; flex:0 0 auto}
+  .logo-wm{font-size:21px; font-weight:800; letter-spacing:.02em; color:#fff; line-height:1}
+  .logo-wm b{color:var(--brand)}
+  .logo-tag{font-size:8.5px; letter-spacing:.16em; color:#c9c9d2; text-transform:uppercase; font-weight:700}
+  .brandbar .spacer{flex:1}
+  .brandbar .bcta{font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+    color:#c9c9d2; text-align:right; line-height:1.5}
+  .brandbar .bcta b{color:#fff; display:block; font-size:11px}
+
   /* ---- header ---- */
-  header{position:sticky; top:0; z-index:10;
-    background:color-mix(in srgb, var(--bg) 88%, transparent);
+  header{position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--bg) 90%, transparent);
     backdrop-filter:blur(10px); padding:12px 14px 11px; border-bottom:1px solid var(--line)}
   header .inner{max-width:680px; margin:0 auto}
   .htop{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
-  h1{font-size:17.5px; margin:2px 0 2px; letter-spacing:-.01em; text-wrap:balance; font-weight:700}
+  h1{font-size:17.5px; margin:2px 0; letter-spacing:-.01em; text-wrap:balance; font-weight:700}
   .sub{font-size:12px; color:var(--muted); margin:0}
   .theme-btn{flex:0 0 auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
-    background:var(--surface); color:var(--ink); font-size:16px; display:grid; place-items:center;
-    cursor:pointer; padding:0}
+    background:var(--surface); color:var(--ink); font-size:16px; display:grid; place-items:center; cursor:pointer; padding:0}
   .seg{display:flex; gap:4px; margin-top:11px; background:var(--surface); border:1px solid var(--line);
     border-radius:10px; padding:3px}
-  .seg-b{flex:1; font-size:12.5px; font-weight:700; padding:8px 10px; border-radius:7px;
-    background:transparent; color:var(--muted); border:0; letter-spacing:.01em}
-  .seg-b.active{background:var(--brass); color:var(--on-brass)}
+  .seg-b{flex:1; font-size:12px; font-weight:700; padding:9px 6px; border-radius:7px; background:transparent;
+    color:var(--muted); border:0; letter-spacing:.01em; cursor:pointer; white-space:nowrap}
+  .seg-b.active{background:var(--brand); color:var(--on-brand)}
   .bar{display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap}
-  .pill{font-size:11px; background:var(--surface); border:1px solid var(--line);
-    color:var(--muted); padding:4px 9px; border-radius:8px; font-weight:600}
+  .pill{font-size:11px; background:var(--surface); border:1px solid var(--line); color:var(--muted);
+    padding:4px 9px; border-radius:8px; font-weight:600}
   .pill b{color:var(--ink)}
-  .prog{flex:1; height:6px; background:var(--surface); border:1px solid var(--line);
-    border-radius:999px; overflow:hidden; min-width:74px}
-  .prog > i{display:block; height:100%; width:0; background:var(--brass); transition:width .3s ease}
-  .prog-txt{font-size:11px; color:var(--muted); font-weight:600; font-variant-numeric:tabular-nums;
-    min-width:34px; text-align:right}
-  /* ---- sections & questions ---- */
-  section.sec{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    margin:16px 0; overflow:hidden; box-shadow:var(--shadow)}
-  .sec-h{display:flex; justify-content:space-between; align-items:center; gap:10px;
-    padding:13px 16px; border-bottom:1px solid var(--line);
-    border-left:3px solid var(--brass)}
+  .prog{flex:1; height:6px; background:var(--surface); border:1px solid var(--line); border-radius:999px; overflow:hidden; min-width:74px}
+  .prog > i{display:block; height:100%; width:0; background:var(--brand); transition:width .3s ease}
+  .prog-txt{font-size:11px; color:var(--muted); font-weight:600; font-variant-numeric:tabular-nums; min-width:34px; text-align:right}
+
+  /* ---- seções e questões ---- */
+  section.sec{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); margin:16px 0; overflow:hidden; box-shadow:var(--shadow)}
+  .sec-h{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:13px 16px;
+    border-bottom:1px solid var(--line); border-left:3px solid var(--brand)}
   .sec-h b{font-size:14px; letter-spacing:-.01em}
-  .sec-h .cnt{font-size:11px; color:var(--muted); white-space:nowrap; font-weight:600;
-    font-variant-numeric:tabular-nums}
+  .sec-h .cnt{font-size:11px; color:var(--muted); white-space:nowrap; font-weight:600; font-variant-numeric:tabular-nums}
   .q{padding:16px}
   .q + .q{border-top:1px solid var(--line)}
   .q-t{font-size:15px; font-weight:600; margin:0 0 12px; display:flex; gap:9px; line-height:1.4}
-  .q-t .n{color:var(--brass); font-weight:700; min-width:24px; font-variant-numeric:tabular-nums}
-  .opt{display:flex; gap:11px; align-items:flex-start; padding:12px; margin:8px 0;
-    background:var(--surface-2); border:1.5px solid var(--line); border-radius:11px; cursor:pointer;
-    font-size:14px; transition:border-color .12s, background .12s; color:var(--ink)}
+  .q-t .n{color:var(--brand); font-weight:700; min-width:24px; font-variant-numeric:tabular-nums}
+  .opt{display:flex; gap:11px; align-items:flex-start; padding:12px; margin:8px 0; background:var(--surface-2);
+    border:1.5px solid var(--line); border-radius:11px; cursor:pointer; font-size:14px; transition:border-color .12s, background .12s; color:var(--ink)}
   .opt:focus-visible{outline:2px solid var(--sel); outline-offset:2px}
-  .opt .mk{flex:0 0 23px; height:23px; border-radius:50%; border:2px solid var(--muted);
-    display:grid; place-items:center; font-size:12px; font-weight:700; color:transparent;
-    transition:.12s}
+  .opt .mk{flex:0 0 23px; height:23px; border-radius:50%; border:2px solid var(--muted); display:grid; place-items:center;
+    font-size:12px; font-weight:700; color:transparent; transition:.12s}
+  .opt.vf .mk{color:var(--muted)}
   .opt .tx{flex:1}
   .opt.sel{border-color:var(--sel); background:var(--sel-soft)}
   .opt.sel .mk{border-color:var(--sel); background:var(--sel); color:#fff}
@@ -103,49 +111,79 @@
   .opt.correct .mk{border-color:var(--ok-mk); background:var(--ok-mk); color:#fff}
   .opt.wrong{border-color:var(--bad); background:var(--bad-soft)}
   .opt.wrong .mk{border-color:var(--bad-mk); background:var(--bad-mk); color:#fff}
-  .exp{font-size:12.5px; color:var(--muted); margin-top:10px; padding:10px 12px;
-    background:var(--brass-soft); border-left:3px solid var(--brass); border-radius:0 8px 8px 0;
-    display:none; line-height:1.5}
+  .exp{font-size:12.5px; color:var(--muted); margin-top:10px; padding:10px 12px; background:var(--brand-soft);
+    border-left:3px solid var(--brand); border-radius:0 8px 8px 0; display:none; line-height:1.5}
   .graded .exp{display:block}
-  /* ---- footer action bar ---- */
-  .footbar{position:fixed; left:0; right:0; bottom:0; z-index:20;
-    background:color-mix(in srgb, var(--bg) 92%, transparent);
-    border-top:1px solid var(--line); padding:12px 14px calc(12px + env(safe-area-inset-bottom));
-    backdrop-filter:blur(10px)}
+
+  /* ---- rodapé do clube ---- */
+  .club{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); margin:20px 0 0;
+    padding:18px 16px; box-shadow:var(--shadow)}
+  .club h3{margin:0 0 3px; font-size:14.5px; letter-spacing:-.01em}
+  .club .addr{font-size:12.5px; color:var(--muted); margin:0 0 13px; line-height:1.5}
+  .club .links{display:flex; flex-direction:column; gap:9px}
+  .club a.row{display:flex; align-items:center; gap:11px; color:var(--ink); text-decoration:none; font-size:13.5px; font-weight:600}
+  .club a.row svg{flex:0 0 34px; width:34px; height:34px; padding:8px; border-radius:9px; background:var(--brand-soft); color:var(--brand)}
+  .club a.row span{min-width:0; overflow-wrap:anywhere}
+  .club .social{display:flex; gap:10px; margin-top:14px}
+  .club .social a{flex:1; display:grid; place-items:center; padding:11px; border-radius:10px; background:var(--brand);
+    color:var(--on-brand); text-decoration:none}
+  .club .social a svg{width:20px; height:20px}
+  .club .cnpj{font-size:10.5px; color:var(--muted); text-align:center; margin:15px 0 0; line-height:1.6}
+
+  /* ---- barra de ações ---- */
+  .footbar{position:fixed; left:0; right:0; bottom:0; z-index:20; background:color-mix(in srgb, var(--bg) 92%, transparent);
+    border-top:1px solid var(--line); padding:12px 14px calc(12px + env(safe-area-inset-bottom)); backdrop-filter:blur(10px)}
   .footbar .inner{max-width:680px; margin:0 auto; display:flex; gap:10px}
-  button{font-family:inherit; font-size:15px; font-weight:700; border:0; border-radius:12px;
-    padding:14px 16px; cursor:pointer; flex:1; transition:transform .05s, filter .15s;
-    letter-spacing:.01em}
-  button:active{transform:scale(.98)}
-  button:focus-visible{outline:2px solid var(--sel); outline-offset:2px}
-  .btn-main{background:var(--brass); color:var(--on-brass)}
+  button.act{font-family:inherit; font-size:15px; font-weight:700; border:0; border-radius:12px; padding:14px 16px;
+    cursor:pointer; flex:1; transition:transform .05s, filter .15s; letter-spacing:.01em}
+  button.act:active{transform:scale(.98)}
+  button.act:focus-visible{outline:2px solid var(--sel); outline-offset:2px}
+  .btn-main{background:var(--brand); color:var(--on-brand)}
   .btn-alt{background:var(--surface); color:var(--ink); border:1px solid var(--line)}
-  /* ---- result card ---- */
-  .result{margin:16px 0; padding:20px 18px; border-radius:var(--radius); text-align:center;
-    border:1px solid var(--line); display:none; box-shadow:var(--shadow)}
+
+  /* ---- resultado ---- */
+  .result{margin:16px 0; padding:20px 18px; border-radius:var(--radius); text-align:center; border:1px solid var(--line); display:none; box-shadow:var(--shadow)}
   .result.show{display:block}
   .result.pass{background:var(--ok-soft); border-color:var(--ok)}
   .result.fail{background:var(--bad-soft); border-color:var(--bad)}
   .result .verdict{font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase}
   .result.pass .verdict{color:var(--ok)}
   .result.fail .verdict{color:var(--bad)}
-  .result .big{font-size:38px; font-weight:800; margin:6px 0 2px; letter-spacing:-.02em;
-    font-variant-numeric:tabular-nums; color:var(--ink)}
+  .result .big{font-size:38px; font-weight:800; margin:6px 0 2px; letter-spacing:-.02em; font-variant-numeric:tabular-nums; color:var(--ink)}
   .result .min{font-size:12px; color:var(--muted); font-weight:600}
-  .result .brk{font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.85;
-    text-align:left; display:inline-block; border-top:1px solid var(--line); padding-top:12px}
+  .result .brk{font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.85; text-align:left; display:inline-block; border-top:1px solid var(--line); padding-top:12px}
   .result .brk b{color:var(--ink); font-variant-numeric:tabular-nums}
-  /* ---- toast ---- */
-  .toast{position:fixed; left:50%; bottom:94px; transform:translateX(-50%) translateY(14px);
-    background:var(--ink); border:1px solid var(--line); color:var(--bg); font-size:13px; font-weight:600;
-    padding:9px 16px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:30;
-    box-shadow:var(--shadow)}
+
+  .toast{position:fixed; left:50%; bottom:94px; transform:translateX(-50%) translateY(14px); background:var(--ink);
+    border:1px solid var(--line); color:var(--bg); font-size:13px; font-weight:600; padding:9px 16px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:.25s; z-index:30; box-shadow:var(--shadow)}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
-  .note{font-size:11.5px; color:var(--muted); text-align:center; margin:24px 0 0; line-height:1.7}
+  .note{font-size:11.5px; color:var(--muted); text-align:center; margin:22px 0 0; line-height:1.7}
   @media (prefers-reduced-motion: reduce){ *{transition:none !important} }
 </style>
 </head>
 <body>
+
+<div class="brandbar">
+  <div class="inner">
+    <img class="logo-img" src="https://acdn-us.mitiendanube.com/stores/005/526/546/themes/common/logo-130337510-1732579161-773f8817c75b753fe1f3868dbaa658bc1732579161-480-0.webp" alt="24HS Clube de Tiro"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <span class="logo-fb">
+      <svg class="logo-cross" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="14" stroke="#f0242c" stroke-width="2.5"/>
+        <path d="M20 2v9M20 29v9M2 20h9M29 20h9" stroke="#f0242c" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="2.6" fill="#f0242c"/>
+      </svg>
+      <span>
+        <span class="logo-wm"><b>24</b>HS</span>
+        <span class="logo-tag" style="display:block">Clube de Tiro</span>
+      </span>
+    </span>
+    <span class="spacer"></span>
+    <span class="bcta"><b>Material de estudo</b>do aluno</span>
+  </div>
+</div>
+
 <header>
   <div class="inner">
     <div class="htop">
@@ -156,9 +194,10 @@
       </div>
       <button class="theme-btn" id="btnTheme" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">◐</button>
     </div>
-    <div class="seg" role="tablist" aria-label="Nível de dificuldade">
-      <button class="seg-b active" id="segPadrao" role="tab" aria-selected="true">Padrão</button>
+    <div class="seg" role="tablist" aria-label="Nível">
+      <button class="seg-b active" id="segFacil" role="tab" aria-selected="true">Fácil</button>
       <button class="seg-b" id="segDificil" role="tab" aria-selected="false">Difícil</button>
+      <button class="seg-b" id="segVF" role="tab" aria-selected="false" aria-label="Verdadeiro ou Falso">V ou F</button>
     </div>
     <div class="bar">
       <span class="pill"><b>20</b> questões</span>
@@ -172,35 +211,55 @@
 <div class="wrap">
   <div id="result" class="result"></div>
   <div id="exam"></div>
+
+  <div class="club">
+    <h3>24HS Clube de Tiro</h3>
+    <p class="addr">Alameda Araguaia, 1443 — Alphaville Industrial<br>Barueri/SP · CEP 06455-000</p>
+    <div class="links">
+      <a class="row" href="https://wa.me/5511973812709" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.83c0 4.54-3.69 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        <span>WhatsApp para dúvidas · (11) 97381-2709</span>
+      </a>
+      <a class="row" href="mailto:loja@24hslojadearmas.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6 9-6" stroke-linecap="round"/></svg>
+        <span>loja@24hslojadearmas.com</span>
+      </a>
+      <a class="row" href="https://www.24hslojadearmas.com/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3 3 16 0 19M12 2.5c-3 3-3 16 0 19" /></svg>
+        <span>www.24hslojadearmas.com</span>
+      </a>
+    </div>
+    <div class="social">
+      <a href="https://instagram.com/24hsclubedetiro" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/24hsclubedetiro/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.3c-.5-.06-1.4-.15-2.5-.15-2.6 0-4.3 1.5-4.3 4.3V9H7.5v3.2H10V22h3.4v-9.8h2.5l.4-3.2H14z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@clubedetiro24horas" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.5 7.2a2.8 2.8 0 00-1.95-2C18.8 4.7 12 4.7 12 4.7s-6.8 0-8.55.5A2.8 2.8 0 001.5 7.2 29 29 0 001 12a29 29 0 00.5 4.8 2.8 2.8 0 001.95 2c1.75.5 8.55.5 8.55.5s6.8 0 8.55-.5a2.8 2.8 0 001.95-2A29 29 0 0023 12a29 29 0 00-.5-4.8zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+      </a>
+    </div>
+    <p class="cnpj">24 Horas Clube de Tiro · CNPJ 44.006.031/0001-25 · © 2026</p>
+  </div>
+
   <p class="note">
-    Baseado na <b>Cartilha de Armamento e Tiro (SAT/ANP – CONAT/DARM)</b>.<br>
-    As questões giram a cada nova prova. Estude, mas na dúvida siga sempre o instrutor credenciado.
+    Material de estudo baseado na <b>Cartilha de Armamento e Tiro (SAT/ANP – CONAT/DARM)</b>.<br>
+    As questões giram a cada nova prova. Na dúvida, siga sempre o instrutor credenciado.
   </p>
 </div>
 
 <div class="footbar">
   <div class="inner">
-    <button class="btn-alt" id="btnNew">Nova prova</button>
-    <button class="btn-main" id="btnGrade">Corrigir prova</button>
+    <button class="act btn-alt" id="btnNew">Nova prova</button>
+    <button class="act btn-main" id="btnGrade">Corrigir prova</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   BANCO DE QUESTÕES — Cartilha de Armamento e Tiro
-   Estrutura oficial da prova (pág. 18 da cartilha):
-     Normas de segurança .......... 6 questões
-     Nomenclatura/funcionamento ... 6 questões
-     Conduta no estande ........... 3 questões
-     Legislação ................... 5 questões
-   A cada "Nova prova" o sistema sorteia questões diferentes
-   de cada banco e embaralha as alternativas.
-   Em cada questão: options[0] é SEMPRE a correta (embaralhada na tela).
-   ============================================================ */
-
-const BANK = {
+const BANK_EASY = {
   seguranca: {
     titulo: "Normas de Segurança",
     n: 6,
@@ -404,13 +463,6 @@ const BANK = {
   }
 };
 
-/* ============================================================
-   BANCO NÍVEL DIFÍCIL — mesmas fontes (cartilha), porém com
-   enunciados de raciocínio combinado, comparação entre conceitos
-   próximos (ação dupla × dupla ação), análise de afirmativas
-   (I, II, III), "assinale a INCORRETA" e questões numéricas de
-   legislação. Convenção mantida: options[0] é sempre a correta.
-   ============================================================ */
 const BANK_HARD = {
   seguranca: {
     titulo: "Normas de Segurança",
@@ -552,19 +604,112 @@ const BANK_HARD = {
   }
 };
 
+const BANK_VF = {
+  seguranca: {
+    titulo: "Normas de Segurança",
+    n: 6,
+    perguntas: [
+      { q:"Toda arma de fogo deve ser tratada como se estivesse sempre carregada.", v:true, e:"Correto — é o princípio básico de segurança." },
+      { q:"Se a arma está comprovadamente descarregada, pode-se apontá-la para qualquer direção.", v:false, e:"Falso — nunca aponte para direção insegura, mesmo descarregada." },
+      { q:"O dedo deve ficar estendido ao longo da armação até o momento de apontar ao alvo e atirar.", v:true, e:"Correto — o dedo só vai ao gatilho na hora do disparo." },
+      { q:"É recomendável testar a trava de segurança puxando o gatilho para ver se funciona.", v:false, e:"Falso — nunca teste a trava acionando o gatilho." },
+      { q:"As travas de segurança são apenas dispositivos mecânicos e não substituem o bom senso.", v:true, e:"Correto." },
+      { q:"Armas e munições devem ser guardadas juntas, para agilizar o uso.", v:false, e:"Falso — devem ser guardadas separadamente e fora do alcance de crianças." },
+      { q:"Ao entregar uma arma a outra pessoa, deve-se entregá-la descarregada.", v:true, e:"Correto." },
+      { q:"Quando a arma 'nega fogo', deve-se olhar imediatamente pela boca do cano para investigar.", v:false, e:"Falso — mantenha-a apontada ao alvo por ~30s; nunca olhe pela boca do cano." },
+      { q:"Se a arma 'negar fogo', deve-se mantê-la apontada ao alvo por cerca de 30 segundos, pois pode haver retardo de ignição.", v:true, e:"Correto." },
+      { q:"É seguro atirar contra superfícies duras e lisas ou contra a água.", v:false, e:"Falso — há risco de ricochete imprevisível." },
+      { q:"Deve-se usar óculos de proteção e abafadores de ruído ao atirar.", v:true, e:"Correto." },
+      { q:"É permitido portar arma sob efeito de medicamentos que reduzam a percepção, desde que em pequena dose.", v:false, e:"Falso — nunca sob efeito de substâncias que reduzam a percepção." },
+      { q:"Munição recarregada ou muito antiga não é confiável e pode ser perigosa.", v:true, e:"Correto." },
+      { q:"O atirador pode modificar as características originais da arma em casa, se for arma de uso permitido.", v:false, e:"Falso — nunca modifique; se necessário, procure um armeiro qualificado." },
+      { q:"Ao transportar ou coldrear a arma, o cão deve permanecer armado para um saque mais rápido.", v:false, e:"Falso — nunca transporte ou coldreie com o cão armado." },
+      { q:"Antes de qualquer limpeza, é obrigatório certificar-se de que a arma está descarregada.", v:true, e:"Correto." },
+      { q:"Revólveres liberam gases e resíduos na folga existente entre o cano e o tambor.", v:true, e:"Correto — por isso mantenha mãos e pessoas afastadas dessa zona." },
+      { q:"Diante de recuo ou som anormais no disparo, deve-se efetuar outro tiro para confirmar o problema.", v:false, e:"Falso — pare, descarregue e verifique se há obstrução no cano." }
+    ]
+  },
+
+  nomenclatura: {
+    titulo: "Nomenclatura e Funcionamento de Peças",
+    n: 6,
+    perguntas: [
+      { q:"A pistola é, geralmente, uma arma semiautomática.", v:true, e:"Correto." },
+      { q:"No revólver, os cartuchos ficam alojados em um carregador reto na coronha.", v:false, e:"Falso — ficam no tambor (cilindro) giratório." },
+      { q:"Arma curta é aquela operada com uma ou duas mãos, sem necessidade de apoio no ombro.", v:true, e:"Correto (ex.: pistola e revólver)." },
+      { q:"No sistema 'ação dupla', é possível armar o cão manualmente para um disparo mais leve.", v:false, e:"Falso — isso é a 'dupla ação'; na ação dupla não há engatilhamento manual." },
+      { q:"No sistema 'dupla ação', a arma pode operar tanto em ação simples quanto em ação dupla.", v:true, e:"Correto." },
+      { q:"Uma arma automática dispara em rajada enquanto o gatilho é mantido pressionado.", v:true, e:"Correto (ex.: metralhadora)." },
+      { q:"Uma arma semiautomática exige um novo acionamento do gatilho a cada disparo.", v:true, e:"Correto — faz tudo sozinha, menos o disparo." },
+      { q:"Na arma de repetição, todas as operações ocorrem automaticamente, sem esforço do atirador.", v:false, e:"Falso — na repetição o atirador atua fisicamente no mecanismo entre os tiros." },
+      { q:"O cano de alma lisa possui sulcos helicoidais chamados raias.", v:false, e:"Falso — a alma lisa é polida; as raias existem na alma raiada." },
+      { q:"As raias imprimem um movimento de rotação ao projétil, dando-lhe estabilidade.", v:true, e:"Correto." },
+      { q:"Os componentes básicos de um cartucho são estojo, espoleta, pólvora e projétil.", v:true, e:"Correto." },
+      { q:"A espoleta contém a mistura iniciadora que gera a chama no momento da percussão.", v:true, e:"Correto." },
+      { q:"A pólvora é a parte do cartucho lançada em direção ao alvo.", v:false, e:"Falso — quem é lançado é o projétil; a pólvora é o propelente." },
+      { q:"Calibre é a medida do diâmetro interno do cano da arma.", v:true, e:"Correto." },
+      { q:"Na arma de antecarga, o carregamento é feito pela boca do cano.", v:true, e:"Correto." },
+      { q:"O calibre real é medido entre os 'fundos' das raias.", v:false, e:"Falso — o real é medido entre os 'cheios'; entre fundos é o calibre do projétil." },
+      { q:"O calibre nominal é a designação dada pelo fabricante, nem sempre igual ao calibre real.", v:true, e:"Correto." },
+      { q:"A espingarda é uma arma portátil de cano longo e alma lisa.", v:true, e:"Correto." }
+    ]
+  },
+
+  conduta: {
+    titulo: "Conduta no Estande de Tiro",
+    n: 3,
+    perguntas: [
+      { q:"O silêncio deve ser rigorosamente observado na linha de tiro.", v:true, e:"Correto — é fator preponderante para a segurança." },
+      { q:"No estande, a arma pode ser carregada e sacada quando o atirador se sentir preparado, sem aguardar comando.", v:false, e:"Falso — apenas sob comando do instrutor." },
+      { q:"No estande, a arma permanece desmuniciada e guardada, salvo comando expresso do instrutor.", v:true, e:"Correto." },
+      { q:"Carregar, sacar e descarregar são feitos sob comando do instrutor, sempre com o cano em direção segura.", v:true, e:"Correto." },
+      { q:"É correto antecipar a execução de um comando do instrutor para ganhar tempo.", v:false, e:"Falso — nunca antecipe nem faça algo não comandado." },
+      { q:"Em caso de incidente, o candidato deve virar-se de costas para o alvo e caminhar até o instrutor.", v:false, e:"Falso — permaneça de frente ao alvo, arma apontada ao alvo, e levante o braço oposto." },
+      { q:"Havendo vários atiradores, deve-se manter o alinhamento com os demais.", v:true, e:"Correto." },
+      { q:"Avançar meio passo à frente da linha de tiro para mirar melhor é permitido.", v:false, e:"Falso — mantenha o alinhamento com os demais atiradores." },
+      { q:"A obediência aos comandos do instrutor visa principalmente à segurança de todos.", v:true, e:"Correto." },
+      { q:"O candidato deve obedecer sempre ao instrutor e nunca fazer algo que não foi comandado.", v:true, e:"Correto." }
+    ]
+  },
+
+  legislacao: {
+    titulo: "Legislação (Lei 10.826/03 e Decreto 5.123/04)",
+    n: 5,
+    perguntas: [
+      { q:"A prova teórica é composta por 20 questões objetivas.", v:true, e:"Correto." },
+      { q:"A aprovação na prova teórica exige, no mínimo, 60% de acertos.", v:true, e:"Correto — 12 de 20." },
+      { q:"O calibre .40 S&W é de uso permitido para arma curta.", v:false, e:"Falso — o .40 S&W é de uso restrito." },
+      { q:"O calibre .38 SPL é de uso permitido.", v:true, e:"Correto (assim como .22 LR, .32 Auto e .380 Auto)." },
+      { q:"Uma arma curta cuja munição gere mais de 407 joules na saída do cano é de uso restrito.", v:true, e:"Correto — o limite do uso permitido é 407 J (300 libras-pé)." },
+      { q:"Na prova prática de arma curta raiada (registro), são 10 tiros a 5 m e 10 tiros a 7 m.", v:true, e:"Correto." },
+      { q:"Nas provas práticas é permitido o uso de munição recarregada.", v:false, e:"Falso — a munição deve ser original; a recarregada é proibida." },
+      { q:"O candidato reprovado pode requerer nova avaliação após 30 dias.", v:true, e:"Correto." },
+      { q:"O revólver enquadra-se como Tipo I (arma curta de alma raiada).", v:true, e:"Correto — Modelo A." },
+      { q:"A pistola enquadra-se como Tipo II (arma curta de alma lisa).", v:false, e:"Falso — a pistola é Tipo I, Modelo B." },
+      { q:"As armas de pressão de uso permitido têm calibre igual ou inferior a 6 mm.", v:true, e:"Correto." },
+      { q:"A base legal da prova é a Lei 10.826/03 (Estatuto do Desarmamento) e o Decreto 5.123/04.", v:true, e:"Correto." },
+      { q:"O alvo colorido de fogo central é utilizado na prova de registro.", v:false, e:"Falso — o alvo colorido é da prova de PORTE; no registro usa-se a silhueta humanoide." },
+      { q:"Para arma longa raiada, o limite do uso permitido é de até 1000 libras-pé (aprox. 1355 J).", v:true, e:"Correto." },
+      { q:"60% de 20 questões correspondem a 12 acertos.", v:true, e:"Correto." },
+      { q:"A prova distribui-se em 6 de segurança, 6 de nomenclatura, 3 de conduta e 5 de legislação.", v:true, e:"Correto." }
+    ]
+  }
+};
+
+
 /* ---------- utilidades ---------- */
-function shuffle(a){ // Fisher-Yates
-  const arr = a.slice();
+function shuffle(a){
+  const arr=a.slice();
   for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
   return arr;
 }
 function pick(arr,n){ return shuffle(arr).slice(0,n); }
 const LETTERS=["A","B","C","D","E"];
 
-let current=[];   // questões da prova atual, na ordem exibida
+let current=[];
 let graded=false;
-let MODE="padrao"; // "padrao" | "dificil"
-function activeBank(){ return MODE==="dificil" ? BANK_HARD : BANK; }
+let MODE="facil"; // "facil" | "dificil" | "vf"
+function activeBank(){ return MODE==="vf" ? BANK_VF : (MODE==="dificil" ? BANK_HARD : BANK_EASY); }
 
 /* ---------- montar prova ---------- */
 function buildExam(){
@@ -575,6 +720,7 @@ function buildExam(){
   document.getElementById("result").className="result";
 
   const B=activeBank();
+  const isVF=(MODE==="vf");
   let globalIdx=0;
   Object.keys(B).forEach(key=>{
     const sec=B[key];
@@ -586,9 +732,13 @@ function buildExam(){
 
     chosen.forEach(p=>{
       globalIdx++;
-      // options[0] é a correta; embaralha para exibir
-      const opts=shuffle(p.options.map((text,i)=>({text, correct:i===0})));
-      const qObj={ el:null, opts, chosen:null, id:globalIdx };
+      let opts;
+      if(isVF){
+        opts=[{text:"Verdadeiro", correct:p.v===true, mk:"V"},{text:"Falso", correct:p.v===false, mk:"F"}];
+      }else{
+        opts=shuffle(p.options.map((text,i)=>({text, correct:i===0})));
+      }
+      const qObj={ el:null, chosen:null, id:globalIdx };
       current.push(qObj);
 
       const qEl=document.createElement("div");
@@ -596,9 +746,10 @@ function buildExam(){
       qEl.innerHTML=`<p class="q-t"><span class="n">${globalIdx}.</span><span>${p.q}</span></p>`;
       opts.forEach((o,oi)=>{
         const opt=document.createElement("div");
-        opt.className="opt";
+        opt.className="opt"+(isVF?" vf":"");
         opt.dataset.correct=o.correct?"1":"0";
-        opt.innerHTML=`<span class="mk">${LETTERS[oi]}</span><span class="tx">${o.text}</span>`;
+        const mk=o.mk || LETTERS[oi];
+        opt.innerHTML=`<span class="mk">${mk}</span><span class="tx">${o.text}</span>`;
         opt.addEventListener("click",()=>{
           if(graded) return;
           qEl.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));
@@ -629,7 +780,7 @@ function updateProgress(){
 
 /* ---------- corrigir ---------- */
 function grade(){
-  if(graded){ buildExam(); return; }
+  if(graded){ buildExam(); document.getElementById("btnGrade").textContent="Corrigir prova"; return; }
   const unanswered=current.filter(q=>q.chosen===null).length;
   if(unanswered>0){
     if(!confirm(`Você deixou ${unanswered} questão(ões) em branco. Corrigir mesmo assim?`)) return;
@@ -683,7 +834,7 @@ function toast(msg){
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1600);
 }
 
-/* ---------- tema claro/escuro ---------- */
+/* ---------- tema ---------- */
 function currentTheme(){
   const attr=document.documentElement.getAttribute("data-theme");
   if(attr) return attr;
@@ -696,20 +847,24 @@ document.getElementById("btnTheme").addEventListener("click",()=>{
 });
 
 /* ---------- seletor de nível ---------- */
+const SEGS={facil:"segFacil", dificil:"segDificil", vf:"segVF"};
+const LABELS={facil:"Nível fácil", dificil:"Nível difícil", vf:"Verdadeiro ou Falso"};
 function setMode(mode){
   if(MODE===mode) return;
   MODE=mode;
-  const isHard=mode==="dificil";
-  document.getElementById("segDificil").classList.toggle("active",isHard);
-  document.getElementById("segDificil").setAttribute("aria-selected",isHard);
-  document.getElementById("segPadrao").classList.toggle("active",!isHard);
-  document.getElementById("segPadrao").setAttribute("aria-selected",!isHard);
+  Object.keys(SEGS).forEach(m=>{
+    const el=document.getElementById(SEGS[m]);
+    const on=(m===mode);
+    el.classList.toggle("active",on);
+    el.setAttribute("aria-selected",on);
+  });
   buildExam();
   document.getElementById("btnGrade").textContent="Corrigir prova";
-  toast(isHard ? "Nível difícil" : "Nível padrão");
+  toast(LABELS[mode]);
 }
-document.getElementById("segPadrao").addEventListener("click",()=>setMode("padrao"));
+document.getElementById("segFacil").addEventListener("click",()=>setMode("facil"));
 document.getElementById("segDificil").addEventListener("click",()=>setMode("dificil"));
+document.getElementById("segVF").addEventListener("click",()=>setMode("vf"));
 
 /* ---------- eventos ---------- */
 document.getElementById("btnGrade").addEventListener("click",grade);
